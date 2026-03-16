@@ -1,8 +1,11 @@
+import Link from 'next/link'
 import React from 'react'
 
 const page = () => {
   return (
-    <div>LoCiFile Home Page</div>
+    <div className=' w-full'>
+      <h1>LoCiFile Home Page</h1>
+    </div>
   )
 }
 
