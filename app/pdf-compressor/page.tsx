@@ -124,11 +124,30 @@ export default function Page() {
           <span className={`font-black text-lg tracking-tight ${t.text}`}>LoCiFile</span>
         </div>
         <div className={`flex items-center gap-6 text-sm ${t.subtext}`}>
-          <a href="#" className={`hover:${t.text} transition`}>🏠 Home</a>
-          <a href="#" className={`hover:${t.text} transition`}>🖼️ Image Tool</a>
-          <a href="#" className={`${t.text} font-semibold`}>📄 PDF Tool</a>
+          {/* Home */}
+          <a href="#" className={`flex items-center gap-1 hover:text-indigo-400 transition`}>
+            <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 12l2-2m0 0l7-7 7 7m-9 5v6h4v-6m-4 0H5a2 2 0 01-2-2V10" />
+            </svg>
+            Home
+          </a>
+          {/* Image Tool */}
+          <a href="#" className={`flex items-center gap-1 hover:text-indigo-400 transition`}>
+            <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
+            </svg>
+            Image Tool
+          </a>
+          {/* PDF Tool */}
+          <a href="#" className={`flex items-center gap-1 text-indigo-400 font-semibold`}>
+            <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z" />
+            </svg>
+            PDF Tool
+          </a>
         </div>
-        {/* Theme Toggle Button */}
+
+        {/* Theme Toggle */}
         <button
           onClick={() => setDark(!dark)}
           className={`w-10 h-10 rounded-full flex items-center justify-center transition-all border ${
@@ -137,7 +156,17 @@ export default function Page() {
               : "bg-slate-200 border-slate-300 hover:bg-slate-300 text-slate-700"
           }`}
         >
-          {dark ? "☀️" : "🌙"}
+          {dark ? (
+            // Sun icon
+            <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 3v1m0 16v1m8.66-9h-1M4.34 12h-1m15.07-6.07-.707.707M6.343 17.657l-.707.707m12.728 0-.707-.707M6.343 6.343l-.707-.707M12 5a7 7 0 100 14A7 7 0 0012 5z" />
+            </svg>
+          ) : (
+            // Moon icon
+            <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z" />
+            </svg>
+          )}
         </button>
       </nav>
 
@@ -152,20 +181,26 @@ export default function Page() {
             onDrop={handleDrop}
             onClick={() => inputRef.current?.click()}
             className={`flex-1 border-2 border-dashed rounded-2xl flex flex-col items-center justify-center cursor-pointer transition-all min-h-64 ${
-              dragging
-                ? "border-indigo-400 bg-indigo-500/10"
-                : `${t.uploadBorder} ${t.uploadHover}`
+              dragging ? "border-indigo-400 bg-indigo-500/10" : `${t.uploadBorder} ${t.uploadHover}`
             }`}
           >
             <input ref={inputRef} type="file" accept="application/pdf" onChange={handleInputChange} className="hidden" />
-            <div className="text-5xl mb-4">☁️</div>
+
+            {/* Upload SVG Icon */}
+            <svg xmlns="http://www.w3.org/2000/svg" className="h-14 w-14 text-indigo-400 mb-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12" />
+            </svg>
+
             {file ? (
               <p className="text-indigo-400 font-bold text-lg">{file.name}</p>
             ) : (
               <>
                 <p className={`font-bold text-lg mb-2 ${t.text}`}>Drag & drop a PDF here or click to upload</p>
                 <p className={`text-sm mb-6 ${t.subtext}`}>Supports PDF files · Max 50MB</p>
-                <button className="bg-indigo-600 hover:bg-indigo-500 text-white px-6 py-2 rounded-lg font-bold transition">
+                <button className="flex items-center gap-2 bg-indigo-600 hover:bg-indigo-500 text-white px-6 py-2 rounded-lg font-bold transition">
+                  <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15.172 7l-6.586 6.586a2 2 0 102.828 2.828l6.414-6.586a4 4 0 00-5.656-5.656l-6.415 6.585a6 6 0 108.486 8.486L20.5 13" />
+                  </svg>
                   Select PDF
                 </button>
               </>
@@ -186,7 +221,9 @@ export default function Page() {
               <div className={`h-24 flex items-center justify-center ${t.subtext}`}>
                 {file ? (
                   <div className="text-center">
-                    <div className="text-3xl mb-1">📄</div>
+                    <svg xmlns="http://www.w3.org/2000/svg" className="h-10 w-10 mx-auto mb-1 text-indigo-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z" />
+                    </svg>
                     <p className={`text-xs truncate max-w-[120px] ${t.subtext}`}>{file.name}</p>
                   </div>
                 ) : (
@@ -207,7 +244,9 @@ export default function Page() {
               <div className={`h-24 flex items-center justify-center ${t.subtext}`}>
                 {blob ? (
                   <div className="text-center">
-                    <div className="text-3xl mb-1">✅</div>
+                    <svg xmlns="http://www.w3.org/2000/svg" className="h-10 w-10 mx-auto mb-1 text-emerald-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                    </svg>
                     <p className="text-xs text-emerald-400 font-bold">Saved {savings}%</p>
                   </div>
                 ) : (
@@ -256,21 +295,28 @@ export default function Page() {
           <button
             onClick={compressPDF}
             disabled={!file || loading}
-            className={`w-full py-4 rounded-2xl font-black text-white text-sm transition-all ${
+            className={`w-full py-4 rounded-2xl font-black text-white text-sm transition-all flex items-center justify-center gap-2 ${
               loading || !file
                 ? "bg-slate-700 cursor-not-allowed text-slate-400"
                 : "bg-indigo-600 hover:bg-indigo-500 shadow-lg shadow-indigo-500/20"
             }`}
           >
             {loading ? (
-              <span className="flex items-center justify-center gap-2">
+              <>
                 <svg className="animate-spin h-4 w-4" fill="none" viewBox="0 0 24 24">
                   <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"/>
                   <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z"/>
                 </svg>
                 Optimizing...
-              </span>
-            ) : "⚡ Compress Now"}
+              </>
+            ) : (
+              <>
+                <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" />
+                </svg>
+                Compress Now
+              </>
+            )}
           </button>
 
           {/* Download Button */}
@@ -285,7 +331,7 @@ export default function Page() {
               }`}
             >
               <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
               </svg>
               {blob ? `Download PDF · ${(compressed / 1024).toFixed(1)} KB` : "Download"}
             </button>
@@ -294,7 +340,11 @@ export default function Page() {
           {/* Privacy Card */}
           <div className={`${t.card} rounded-2xl p-5 border ${t.border} mt-auto transition-colors duration-300`}>
             <div className="flex items-start gap-3">
-              <div className="w-8 h-8 rounded-full bg-indigo-500/20 flex items-center justify-center text-sm flex-shrink-0">🔒</div>
+              <div className="w-8 h-8 rounded-full bg-indigo-500/20 flex items-center justify-center flex-shrink-0">
+                <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 text-indigo-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
+                </svg>
+              </div>
               <div>
                 <p className={`font-black text-sm mb-1 ${t.text}`}>Privacy Guarantee</p>
                 <p className={`text-xs leading-relaxed ${t.subtext}`}>
