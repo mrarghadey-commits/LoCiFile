@@ -146,7 +146,7 @@ export default function Page() {
                   : <div className="flex justify-center items-center gap-2"><WandSparkles/> Compress</div>
                 }
               </button>
-              <div className={` w-full py-4 ${ !url? " bg-primary text-white cursor-pointer active:scale-95 active:bg-primary/50 " :'bg-slate-800 text-slate-600 cursor-not-allowed'} font-bold rounded-lg`} >
+              <div className={` w-full py-4 ${ url? " bg-primary text-white cursor-pointer active:scale-95 active:bg-primary/50 " :'bg-slate-800 text-slate-600 cursor-not-allowed'} font-bold rounded-lg`} >
                 <a href={url || undefined} download={ url ? `compressed-${fileName}` : undefined} className={`flex items-center justify-center gap-2 ${url? "cursor-pointer" : "cursor-not-allowed"}`}>
                   <Download /> Download
                 </a>
