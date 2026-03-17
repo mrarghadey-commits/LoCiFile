@@ -61,16 +61,25 @@ export default function CompressTool() {
       setProgress(10)
 
       let quality = 0.85
-      let scale = 1.5
+      let scale = 1.2
       let resultBlob: Blob | null = null
+      let bestBlob: Blob | null = null
       let iteration = 0
+      const maxIterations = 15
+      const targetNum = Number(targetKB)
 
-      while (true) {
+      while (iteration < maxIterations) {
         iteration++
+
+        setProgressLabel(`Iteration ${iteration} — rendering pages...`)
         const newPdf = await PDFDocument.create()
+
         for (let i = 1; i <= pdf.numPages; i++) {
-          setProgress(Math.min(10 + Math.round(((i / pdf.numPages) * 70) / Math.max(iteration, 1)), 80))
-          setProgressLabel(`Processing page ${i} of ${pdf.numPages}...`)
+          // Progress always moves forward: 10% to 82% across pages
+          const pageProgress = 10 + Math.round((i / pdf.numPages) * 72)
+          setProgress(pageProgress)
+          setProgressLabel(`Iteration ${iteration} — page ${i} of ${pdf.numPages}`)
+
           const page = await pdf.getPage(i)
           const viewport = page.getViewport({ scale })
           const canvas = document.createElement("canvas")
@@ -80,31 +89,57 @@ export default function CompressTool() {
           canvas.height = viewport.height
           ctx.imageSmoothingEnabled = true
           ctx.imageSmoothingQuality = "high"
-          await (page as any).render({ canvasContext: ctx as any, viewport: viewport as any, intent: "display" }).promise
+          await (page as any).render({
+            canvasContext: ctx as any,
+            viewport: viewport as any,
+            intent: "display",
+          }).promise
           const imgData = canvas.toDataURL("image/jpeg", quality)
           const jpg = await newPdf.embedJpg(imgData)
           const p = newPdf.addPage([viewport.width, viewport.height])
           p.drawImage(jpg, { x: 0, y: 0, width: viewport.width, height: viewport.height })
         }
-        setProgressLabel("Optimizing output...")
+
+        setProgressLabel("Saving...")
         setProgress(85)
         const bytes = await newPdf.save()
         const currentBlob = new window.Blob([bytes as any], { type: "application/pdf" })
-        resultBlob = currentBlob
         const sizeKB = currentBlob.size / 1024
         const savings = Math.round(((file.size - currentBlob.size) / file.size) * 100)
-        setProgressLabel(`${sizeKB.toFixed(0)} KB — Saved ${savings}%`)
-        if (sizeKB <= Number(targetKB)) break
-        if (quality <= 0.3 && scale <= 0.7) break
-        if (quality > 0.4) quality -= 0.1
-        else scale -= 0.2
+
+        // Always keep the best (smallest) result so far
+        if (!bestBlob || currentBlob.size < bestBlob.size) {
+          bestBlob = currentBlob
+        }
+        resultBlob = currentBlob
+
+        setProgressLabel(`${sizeKB.toFixed(0)} KB — Saved ${savings > 0 ? savings : 0}%`)
+
+        // Hit target — done
+        if (sizeKB <= targetNum) break
+
+        // Can't reduce further — stop
+        if (quality <= 0.1 && scale <= 0.4) break
+
+        // Reduce quality first, then scale
+        if (quality > 0.3) {
+          quality = Math.max(quality - 0.1, 0.1)
+        } else if (scale > 0.4) {
+          scale = Math.max(scale - 0.15, 0.4)
+        } else {
+          break
+        }
       }
 
       setProgress(100)
       setProgressLabel("Done!")
-      if (resultBlob) {
-        setBlob(resultBlob)
-        setCompressed(resultBlob.size)
+
+      // Use best result even if target wasn't reached
+      const finalBlob = bestBlob || resultBlob
+      if (finalBlob) {
+        setBlob(finalBlob)
+        setCompressed(finalBlob.size)
+        setTimeout(() => resultRef.current?.scrollIntoView({ behavior: "smooth", block: "center" }), 100)
       }
     } catch (error) {
       console.error("Compression Error:", error)
