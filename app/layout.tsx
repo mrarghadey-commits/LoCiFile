@@ -27,9 +27,33 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" >
+    <html lang="en" suppressHydrationWarning>
+      <head>
+        <script
+          dangerouslySetInnerHTML={{
+        __html: `
+          (function() {
+            try {
+              const theme = localStorage.getItem("theme");
+
+              if (theme === "dark") {
+                document.documentElement.classList.add("dark");
+              } else if (theme === "light") {
+                document.documentElement.classList.remove("dark");
+              } else {
+                // system preference fallback
+                if (window.matchMedia("(prefers-color-scheme: dark)").matches) {
+                  document.documentElement.classList.add("dark");
+                }
+              }
+            } catch (e) {}
+          })();
+        `,
+      }}
+        />
+      </head>
       <body
-        className={`${geistSans.variable} ${geistMono.variable} bg-backgroundLight dark:bg-backgroundDark text-slate-900 dark:text-slate-100 antialiased overflow-x-hidden`}
+        className={`${geistSans.variable} ${geistMono.variable} bg-backgroundLight dark:bg-backgroundDark text-slate-900 dark:text-slate-100 antialiased overflow-x-hidden transition-colors duration-300`}
       >
         <Navbar />
         <main className="mt-16">
