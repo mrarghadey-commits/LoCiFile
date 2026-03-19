@@ -53,7 +53,7 @@ export default function RootLayout({
         />
       </head>
       <body
-        className={`${geistSans.variable} ${geistMono.variable} bg-backgroundLight dark:bg-backgroundDark text-slate-900 dark:text-slate-100 antialiased overflow-x-hidden transition-colors duration-300`}
+        className={`${geistSans.variable} ${geistMono.variable} select-none bg-backgroundLight dark:bg-backgroundDark text-slate-900 dark:text-slate-100 antialiased overflow-x-hidden transition-colors duration-300`}
       >
         <Navbar />
         <main className="mt-16">
