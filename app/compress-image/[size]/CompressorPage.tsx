@@ -4,8 +4,8 @@ import { compressToTarget } from "@/tools/imagecompression";
 import { CircleUserIcon, CloudUpload, Download, FileImage, Hd, Loader, ShieldCheck, SlidersHorizontal, SlidersHorizontalIcon, WandSparkles, Zap } from "lucide-react";
 import Image from "next/image";
 
-export default function CompressorPage() {
-  const [target, setTarget] = useState(50);
+export default function CompressorPage({targetSize}:{targetSize: number}) {
+  const [target, setTarget] = useState(targetSize);
   const [file, setFile] = useState<File | null>(null)
   const [preview, setPreview] = useState('')
   const [url, setUrl] = useState("");
@@ -49,7 +49,7 @@ export default function CompressorPage() {
           <span className="bg-emerald-500/20 text-emerald-400 uppercase font-bold text-[10px] px-2 py-0.5 tracking-widest rounded ">Local Processing</span>
         </div>
         <h1 className=" md:text-5xl text-xl font-bold md:mb-4 mb-1">Professional Image Compressor</h1>
-        <p className=" text-slate-400 max-w-2xl md:text-lg text-sm">Private, local-first processing. Your photos never leave your browser, ensuring 100% privacy and lightning-fast speed.</p>
+        <p className=" text-slate-400 max-w-2xl md:text-lg text-sm">Private, local-first processing. Your photos never leave your browser, ensuring 100% privacy and lightning-fast speed. Upload your image and compress it to {target}KB.</p>
       </div>
       <div className=" grid lg:grid-cols-12 md:gap-8 ">
         <div className="lg:col-span-8 md:space-y-4 space-y-2">

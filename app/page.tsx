@@ -36,7 +36,7 @@ const page = () => {
           </div>
         </div>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          <Link href='/image-compressor' className=" md:p-8 p-4 rounded-2xl group bg-white dark:bg-primary/5 border dark:border-primary/50 border-slate-200 shadow-sm">
+          <Link href='/compress-image-to-100kb' className=" md:p-8 p-4 rounded-2xl group bg-white dark:bg-primary/5 border dark:border-primary/50 border-slate-200 shadow-sm">
             <div className="md:mb-6 mb-3 flex justify-between items-start">
               <div
                 className="w-14 h-14 rounded-xl dark:bg-green-500/20 bg-emerald-50 flex items-center justify-center border border-emerald-100 dark:border-green-500/30">
