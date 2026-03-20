@@ -60,25 +60,24 @@ export default function CompressTool() {
       setProgressLabel("Analyzing pages...")
       setProgress(10)
 
-      let quality = 0.85
-      let scale = 1.2
-      let resultBlob: Blob | null = null
-      let bestBlob: Blob | null = null
-      let iteration = 0
-      const maxIterations = 15
       const targetNum = Number(targetKB)
+      let bestBlob: Blob | null = null
+      let resultBlob: Blob | null = null
+      let iteration = 0
+      const maxIterations = 30
+
+      // Start at high quality, step down aggressively toward target
+      let quality = 0.92
+      let scale = 1.2
 
       while (iteration < maxIterations) {
         iteration++
-
-        setProgressLabel(`Iteration ${iteration} — rendering pages...`)
         const newPdf = await PDFDocument.create()
 
         for (let i = 1; i <= pdf.numPages; i++) {
-          // Progress always moves forward: 10% to 82% across pages
-          const pageProgress = 10 + Math.round((i / pdf.numPages) * 72)
-          setProgress(pageProgress)
-          setProgressLabel(`Iteration ${iteration} — page ${i} of ${pdf.numPages}`)
+          const pageProgress = 10 + Math.round((iteration / maxIterations) * 72)
+          setProgress(Math.min(pageProgress, 84))
+          setProgressLabel(`Pass ${iteration} — page ${i}/${pdf.numPages}`)
 
           const page = await pdf.getPage(i)
           const viewport = page.getViewport({ scale })
@@ -107,34 +106,31 @@ export default function CompressTool() {
         const sizeKB = currentBlob.size / 1024
         const savings = Math.round(((file.size - currentBlob.size) / file.size) * 100)
 
-        // Always keep the best (smallest) result so far
-        if (!bestBlob || currentBlob.size < bestBlob.size) {
-          bestBlob = currentBlob
-        }
+        if (!bestBlob || currentBlob.size < bestBlob.size) bestBlob = currentBlob
         resultBlob = currentBlob
 
-        setProgressLabel(`${sizeKB.toFixed(0)} KB — Saved ${savings > 0 ? savings : 0}%`)
+        setProgressLabel(`${sizeKB.toFixed(1)} KB — Saved ${savings > 0 ? savings : 0}%`)
 
-        // Hit target — done
+        // Hit target — stop
         if (sizeKB <= targetNum) break
 
-        // Can't reduce further — stop
-        if (quality <= 0.1 && scale <= 0.4) break
+        // Can't compress further
+        if (quality <= 0.05 && scale <= 0.3) break
 
-        // Reduce quality first, then scale
-        if (quality > 0.3) {
-          quality = Math.max(quality - 0.1, 0.1)
-        } else if (scale > 0.4) {
-          scale = Math.max(scale - 0.15, 0.4)
+        // Aggressively reduce quality first, then scale
+        if (quality > 0.5) {
+          quality = Math.max(quality - 0.12, 0.05)
+        } else if (quality > 0.2) {
+          quality = Math.max(quality - 0.08, 0.05)
+          scale = Math.max(scale - 0.1, 0.3)
         } else {
-          break
+          scale = Math.max(scale - 0.15, 0.3)
+          quality = Math.max(quality - 0.03, 0.05)
         }
       }
 
       setProgress(100)
       setProgressLabel("Done!")
-
-      // Use best result even if target wasn't reached
       const finalBlob = bestBlob || resultBlob
       if (finalBlob) {
         setBlob(finalBlob)
@@ -162,10 +158,16 @@ export default function CompressTool() {
   const savings = original > 0 && compressed > 0
     ? Math.round(((original - compressed) / original) * 100) : 0
 
+  const featureCards = [
+    { icon: "M13 10V3L4 14h7v7l9-11h-7z", color: "violet", title: "Instant Speed", desc: "Milliseconds, not minutes." },
+    { icon: "M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z", color: "violet", title: "Smart Reduction", desc: "Optimizes text and images separately." },
+    { icon: "M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z", color: "emerald", title: "Privacy Guarantee", desc: "Never uploaded to any server." },
+  ]
+
   return (
     <div className="flex gap-4">
 
-      {/* Left: Upload */}
+      {/* Left: Upload + Results + Feature Cards */}
       <div className="flex-1 flex flex-col gap-3">
 
         {/* Drop Zone */}
@@ -245,6 +247,24 @@ export default function CompressTool() {
             </div>
           </div>
         )}
+
+        {/* Feature Cards */}
+        <div className="grid grid-cols-1 sm:grid-cols-3 gap-2">
+          {featureCards.map(({ icon, color, title, desc }) => (
+            <div key={title} className="dark:bg-[#12121a] bg-white border dark:border-white/5 border-slate-200 rounded-xl p-3 flex items-center gap-3">
+              <div className={`w-8 h-8 rounded-full bg-${color}-600/20 flex items-center justify-center flex-shrink-0`}>
+                <svg xmlns="http://www.w3.org/2000/svg" className={`h-4 w-4 text-${color}-400`} fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d={icon} />
+                </svg>
+              </div>
+              <div>
+                <p className="font-black text-xs dark:text-white text-slate-900">{title}</p>
+                <p className="text-slate-500 text-xs">{desc}</p>
+              </div>
+            </div>
+          ))}
+        </div>
+
       </div>
 
       {/* Right: Controls */}
@@ -347,26 +367,6 @@ export default function CompressTool() {
           </button>
         </div>
 
-        {/* Feature Cards */}
-        <div className="flex flex-col gap-2">
-          {[
-            { icon: "M13 10V3L4 14h7v7l9-11h-7z", color: "violet", title: "Instant Speed", desc: "Milliseconds, not minutes." },
-            { icon: "M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z", color: "violet", title: "Smart Reduction", desc: "Optimizes text and images separately." },
-            { icon: "M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z", color: "emerald", title: "Privacy Guarantee", desc: "Never uploaded to any server." },
-          ].map(({ icon, color, title, desc }) => (
-            <div key={title} className="dark:bg-[#12121a] bg-white border dark:border-white/5 border-slate-200 rounded-xl p-3 flex items-center gap-3">
-              <div className={`w-8 h-8 rounded-full bg-${color}-600/20 flex items-center justify-center flex-shrink-0`}>
-                <svg xmlns="http://www.w3.org/2000/svg" className={`h-4 w-4 text-${color}-400`} fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d={icon} />
-                </svg>
-              </div>
-              <div>
-                <p className="font-black text-xs dark:text-white text-slate-900">{title}</p>
-                <p className="text-slate-500 text-xs">{desc}</p>
-              </div>
-            </div>
-          ))}
-        </div>
       </div>
     </div>
   )
