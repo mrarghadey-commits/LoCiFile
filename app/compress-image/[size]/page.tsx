@@ -1,6 +1,13 @@
 import type { Metadata } from "next";
 import CompressorPage from "./CompressorPage";
 import { Lock } from "lucide-react";
+import { notFound } from "next/navigation";
+
+type Props = {
+    params: Promise<{
+        size: string;
+    }>;
+};
 
 export const metadata: Metadata = {
     title: "Compress Images Online (No Upload) | LoCiFile",
@@ -32,11 +39,25 @@ export const metadata: Metadata = {
     }
 };
 
-export default function Page() {
+export default async function Page({ params }: Props) {
+    const { size } = await params;
+    console.log(size)
+    const allowed = [10, 20, 30, 40, 50, 100, 200, 300, 400, 500, 1000];
+    // normalize input
+    const raw = (size ?? "").toLowerCase().trim();
+
+    // extract number safely
+    const sizeInKB = raw.endsWith("kb")
+        ? parseInt(raw.replace("kb", ""), 10)
+        : NaN;
+
+    if (!allowed.includes(sizeInKB)) {
+        notFound(); 
+    }
     return (
         <main>
             {/* Client Tool */}
-            <CompressorPage />
+            <CompressorPage targetSize={sizeInKB} />
 
             {/* SEO content */}
             <section>
@@ -63,7 +84,7 @@ export default function Page() {
                                 wait for server processing, and then download. We skip the network delay entirely.
                             </p>
                         </div>
-                        <p className=" flex gap-2 p-2 bg-primary/10 rounded-2xl items-center border border-primary/50"><Lock size={18}/> Your images never leave your device</p>
+                        <p className=" flex gap-2 p-2 bg-primary/10 rounded-2xl items-center border border-primary/50"><Lock size={18} /> Your images never leave your device</p>
                     </div>
                 </div>
             </section>
