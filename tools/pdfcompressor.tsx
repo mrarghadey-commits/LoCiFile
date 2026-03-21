@@ -141,10 +141,92 @@ export default function CompressTool() {
   const savings = original > 0 && compressed > 0
     ? Math.round(((original - compressed) / original) * 100) : 0
 
+  const featureCards = [
+    { icon: "M13 10V3L4 14h7v7l9-11h-7z", color: "violet", title: "Instant Speed", desc: "Milliseconds, not minutes." },
+    { icon: "M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z", color: "violet", title: "Smart Reduction", desc: "Optimizes text and images separately." },
+    { icon: "M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z", color: "emerald", title: "Privacy Guarantee", desc: "Never uploaded to any server." },
+  ]
+
+  // const faq = {
+  //       "@context": "https://schema.org",
+  //       "@type": "FAQPage",
+  //       mainEntity: [
+  //           {
+  //               "@type": "Question",
+  //               name: `How to compress image to ${size}?`,
+  //               acceptedAnswer: {
+  //                   "@type": "Answer",
+  //                   text: `Upload your image and compress it to ${size} instantly using our free tool.`,
+  //               },
+  //           },
+  //           {
+  //               "@type": "Question",
+  //               name: `Does compressing image to ${size} reduce quality?`,
+  //               acceptedAnswer: {
+  //                   "@type": "Answer",
+  //                   text: `No, we use smart compression to maintain quality when compressing images to ${size}.`,
+  //               },
+  //           },
+  //       ],
+  //   };
+  //   const breadcrumb = {
+  //       "@context": "https://schema.org",
+  //       "@type": "BreadcrumbList",
+  //       itemListElement: [
+  //           {
+  //               "@type": "ListItem",
+  //               position: 1,
+  //               name: "Home",
+  //               item: "https://locifile.in",
+  //           },
+  //           {
+  //               "@type": "ListItem",
+  //               position: 2,
+  //               name: "Image Compressor",
+  //               item: "https://locifile.in/image-compressor",
+  //           },
+  //           {
+  //               "@type": "ListItem",
+  //               position: 3,
+  //               name: `Compress Image to ${size}`,
+  //               item: `https://locifile.in/compress-image-to-${size}`,
+  //           },
+  //       ],
+  //   };
+  //   const howTo = {
+  //       "@context": "https://schema.org",
+  //       "@type": "HowTo",
+  //       name: `How to compress image to ${size}`,
+  //       description: `Step by step guide to compress image to ${size}`,
+  //       step: [
+  //           {
+  //               "@type": "HowToStep",
+  //               name: "Upload Image",
+  //               text: "Upload your image file from your device.",
+  //           },
+  //           {
+  //               "@type": "HowToStep",
+  //               name: "Start Compression",
+  //               text: `Click compress to reduce image size to ${size}.`,
+  //           },
+  //           {
+  //               "@type": "HowToStep",
+  //               name: "Download Image",
+  //               text: "Download the compressed image instantly.",
+  //           },
+  //       ],
+  //   };
+  //   const structuredData = [
+  //       jsonLd,
+  //       faq,
+  //       breadcrumb,
+  //       howTo
+  //   ];
+
   return (
     <div className="flex flex-col lg:flex-row gap-4">
 
-      {/* Left: Upload */}
+      {/* Left: Upload + Results + Feature Cards */}
       <div className="flex-1 flex flex-col gap-3">
 
         {/* Drop Zone */}
@@ -180,10 +262,12 @@ export default function CompressTool() {
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z" />
                 </svg>
               </div>
-              <span className="text-xs dark:text-slate-300 text-slate-700 font-medium truncate max-w-[140px] sm:max-w-[200px]">{file.name}</span>
+              <span className="text-xs dark:text-slate-300 text-slate-700 font-medium truncate max-w-[140px] sm:max-w-[220px] lg:max-w-[180px]">{file.name}</span>
             </div>
             <span className="text-xs flex-shrink-0">
-              {blob ? <span className="text-emerald-400 font-bold">Compressed ✓</span> : <span className="text-slate-500">Ready</span>}
+              {blob
+                ? <span className="text-emerald-400 font-bold">Compressed ✓</span>
+                : <span className="text-slate-500">Ready · {(original / 1024).toFixed(1)} KB</span>}
             </span>
           </div>
         )}
@@ -224,40 +308,58 @@ export default function CompressTool() {
             </div>
           </div>
         )}
+
+        {/* Feature Cards — hidden on mobile/tablet (shown in right column order) */}
+        <div className="hidden lg:grid grid-cols-3 gap-2">
+          {featureCards.map(({ icon, color, title, desc }) => (
+            <div key={title} className="dark:bg-[#12121a] bg-white border dark:border-white/5 border-slate-200 rounded-xl p-3 flex items-center gap-3">
+              <div className={`w-8 h-8 rounded-full bg-${color}-600/20 flex items-center justify-center flex-shrink-0`}>
+                <svg xmlns="http://www.w3.org/2000/svg" className={`h-4 w-4 text-${color}-400`} fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d={icon} />
+                </svg>
+              </div>
+              <div>
+                <p className="font-black text-xs dark:text-white text-slate-900">{title}</p>
+                <p className="text-slate-500 text-xs">{desc}</p>
+              </div>
+            </div>
+          ))}
+        </div>
+
       </div>
 
       {/* Right: Controls */}
       <div className="w-full lg:w-72 flex flex-col gap-3">
 
         {/* Presets */}
-        <div className="dark:bg-[#12121a] bg-white border dark:border-white/10 border-slate-200 rounded-2xl p-4">
-          <div className="flex items-center gap-2 mb-3">
+        <div className="dark:bg-[#12121a] bg-white border dark:border-white/10 border-slate-200 rounded-2xl p-3 sm:p-4">
+          <div className="flex items-center gap-2 mb-2 sm:mb-3">
             <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 text-violet-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 6V4m0 2a2 2 0 100 4m0-4a2 2 0 110 4m-6 8a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4m6 6v10m6-2a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4" />
             </svg>
             <span className="font-black text-sm dark:text-white text-slate-900">Optimization Presets</span>
           </div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-1 gap-2 mb-3">
+          <div className="grid grid-cols-2 lg:grid-cols-1 gap-2 mb-2 sm:mb-3">
             {[
-              { key: "100" as const, label: "Target 100KB", desc: "Aggressive, for email attachments" },
-              { key: "200" as const, label: "Target 200KB", desc: "High quality for web uploads" },
+              { key: "100" as const, label: "Target 100KB", desc: "For email attachments" },
+              { key: "200" as const, label: "Target 200KB", desc: "For web uploads" },
             ].map(({ key, label, desc }) => (
               <div
                 key={key}
                 onClick={() => handlePreset(key)}
-                className={`flex items-center gap-3 p-2.5 rounded-xl cursor-pointer border transition-all ${
+                className={`flex items-center gap-2 p-2 sm:p-2.5 rounded-xl cursor-pointer border transition-all ${
                   preset === key
                     ? "border-violet-500 bg-violet-500/10"
                     : "dark:border-white/5 border-slate-200 dark:bg-white/5 bg-slate-50 hover:border-violet-500/40"
                 }`}
               >
-                <div className={`w-4 h-4 rounded-full border-2 flex items-center justify-center flex-shrink-0 ${preset === key ? "border-violet-500" : "border-slate-500"}`}>
-                  {preset === key && <div className="w-2 h-2 rounded-full bg-violet-500" />}
+                <div className={`w-3.5 h-3.5 rounded-full border-2 flex items-center justify-center flex-shrink-0 ${preset === key ? "border-violet-500" : "border-slate-500"}`}>
+                  {preset === key && <div className="w-1.5 h-1.5 rounded-full bg-violet-500" />}
                 </div>
-                <div>
-                  <p className="text-xs font-bold dark:text-white text-slate-900">{label}</p>
-                  <p className="text-xs text-slate-500">{desc}</p>
+                <div className="min-w-0">
+                  <p className="text-xs font-bold dark:text-white text-slate-900 truncate">{label}</p>
+                  <p className="text-xs text-slate-500 truncate">{desc}</p>
                 </div>
               </div>
             ))}
@@ -282,8 +384,8 @@ export default function CompressTool() {
           </div>
         </div>
 
-        {/* Compress + Download */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-1 gap-3">
+        {/* Compress + Download Buttons */}
+        <div className="grid grid-cols-2 lg:grid-cols-1 gap-3">
           <button
             onClick={compressPDF}
             disabled={!file || loading}
@@ -299,7 +401,7 @@ export default function CompressTool() {
                   <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
                   <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z" />
                 </svg>
-                {progress}% — Optimizing...
+                {progress}%...
               </>
             ) : (
               <>
@@ -329,14 +431,10 @@ export default function CompressTool() {
           </div>
         </div>
 
-        {/* Feature Cards */}
-        <div className="flex flex-row lg:flex-col gap-2 overflow-x-auto pb-1 lg:overflow-visible">
-          {[
-            { icon: "M13 10V3L4 14h7v7l9-11h-7z", color: "violet", title: "Instant Speed", desc: "Milliseconds, not minutes." },
-            { icon: "M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z", color: "violet", title: "Smart Reduction", desc: "Optimizes text and images separately." },
-            { icon: "M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z", color: "emerald", title: "Privacy Guarantee", desc: "Never uploaded to any server." },
-          ].map(({ icon, color, title, desc }) => (
-            <div key={title} className="dark:bg-[#12121a] bg-white border dark:border-white/5 border-slate-200 rounded-xl p-3 flex items-center gap-3 min-w-[170px] lg:min-w-0 flex-shrink-0 lg:flex-shrink">
+        {/* Feature Cards — visible on mobile/tablet only */}
+        <div className="grid grid-cols-1 sm:grid-cols-3 lg:hidden gap-2">
+          {featureCards.map(({ icon, color, title, desc }) => (
+            <div key={title} className="dark:bg-[#12121a] bg-white border dark:border-white/5 border-slate-200 rounded-xl p-3 flex items-center gap-3">
               <div className={`w-8 h-8 rounded-full bg-${color}-600/20 flex items-center justify-center flex-shrink-0`}>
                 <svg xmlns="http://www.w3.org/2000/svg" className={`h-4 w-4 text-${color}-400`} fill="none" viewBox="0 0 24 24" stroke="currentColor">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d={icon} />
@@ -349,6 +447,7 @@ export default function CompressTool() {
             </div>
           ))}
         </div>
+
       </div>
     </div>
   )
