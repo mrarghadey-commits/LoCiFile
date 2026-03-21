@@ -192,6 +192,10 @@ export default function CompressTool() {
               {blob
                 ? <span className="text-emerald-400 font-bold">Compressed ✓</span>
                 : <span className="text-slate-500">Ready · {(original / 1024).toFixed(1)} KB</span>}
+              <span className="text-xs dark:text-slate-300 text-slate-700 font-medium truncate max-w-[140px] sm:max-w-[200px]">{file.name}</span>
+            </div>
+            <span className="text-xs flex-shrink-0">
+              {blob ? <span className="text-emerald-400 font-bold">Compressed ✓</span> : <span className="text-slate-500">Ready</span>}
             </span>
           </div>
         )}
@@ -268,11 +272,16 @@ export default function CompressTool() {
             {[
               { key: "100" as const, label: "Target 100KB", desc: "For email attachments" },
               { key: "200" as const, label: "Target 200KB", desc: "For web uploads" },
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-1 gap-2 mb-3">
+            {[
+              { key: "100" as const, label: "Target 100KB", desc: "Aggressive, for email attachments" },
+              { key: "200" as const, label: "Target 200KB", desc: "High quality for web uploads" },
             ].map(({ key, label, desc }) => (
               <div
                 key={key}
                 onClick={() => handlePreset(key)}
                 className={`flex items-center gap-2 p-2 sm:p-2.5 rounded-xl cursor-pointer border transition-all ${
+                className={`flex items-center gap-3 p-2.5 rounded-xl cursor-pointer border transition-all ${
                   preset === key
                     ? "border-violet-500 bg-violet-500/10"
                     : "dark:border-white/5 border-slate-200 dark:bg-white/5 bg-slate-50 hover:border-violet-500/40"
@@ -284,6 +293,12 @@ export default function CompressTool() {
                 <div className="min-w-0">
                   <p className="text-xs font-bold dark:text-white text-slate-900 truncate">{label}</p>
                   <p className="text-xs text-slate-500 truncate">{desc}</p>
+                <div className={`w-4 h-4 rounded-full border-2 flex items-center justify-center flex-shrink-0 ${preset === key ? "border-violet-500" : "border-slate-500"}`}>
+                  {preset === key && <div className="w-2 h-2 rounded-full bg-violet-500" />}
+                </div>
+                <div>
+                  <p className="text-xs font-bold dark:text-white text-slate-900">{label}</p>
+                  <p className="text-xs text-slate-500">{desc}</p>
                 </div>
               </div>
             ))}
@@ -310,6 +325,8 @@ export default function CompressTool() {
 
         {/* Compress + Download Buttons */}
         <div className="grid grid-cols-2 lg:grid-cols-1 gap-3">
+        {/* Compress + Download */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-1 gap-3">
           <button
             onClick={compressPDF}
             disabled={!file || loading}
@@ -326,6 +343,7 @@ export default function CompressTool() {
                   <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z" />
                 </svg>
                 {progress}%...
+                {progress}% — Optimizing...
               </>
             ) : (
               <>
@@ -359,6 +377,14 @@ export default function CompressTool() {
         <div className="grid grid-cols-1 sm:grid-cols-3 lg:hidden gap-2">
           {featureCards.map(({ icon, color, title, desc }) => (
             <div key={title} className="dark:bg-[#12121a] bg-white border dark:border-white/5 border-slate-200 rounded-xl p-3 flex items-center gap-3">
+        {/* Feature Cards */}
+        <div className="flex flex-row lg:flex-col gap-2 overflow-x-auto pb-1 lg:overflow-visible">
+          {[
+            { icon: "M13 10V3L4 14h7v7l9-11h-7z", color: "violet", title: "Instant Speed", desc: "Milliseconds, not minutes." },
+            { icon: "M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z", color: "violet", title: "Smart Reduction", desc: "Optimizes text and images separately." },
+            { icon: "M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z", color: "emerald", title: "Privacy Guarantee", desc: "Never uploaded to any server." },
+          ].map(({ icon, color, title, desc }) => (
+            <div key={title} className="dark:bg-[#12121a] bg-white border dark:border-white/5 border-slate-200 rounded-xl p-3 flex items-center gap-3 min-w-[170px] lg:min-w-0 flex-shrink-0 lg:flex-shrink">
               <div className={`w-8 h-8 rounded-full bg-${color}-600/20 flex items-center justify-center flex-shrink-0`}>
                 <svg xmlns="http://www.w3.org/2000/svg" className={`h-4 w-4 text-${color}-400`} fill="none" viewBox="0 0 24 24" stroke="currentColor">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d={icon} />
