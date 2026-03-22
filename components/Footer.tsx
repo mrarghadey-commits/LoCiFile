@@ -11,7 +11,7 @@ const Footer = () => {
         </div>
         <div className=" flex justify-between gap-2 ">
           <Link href="/privacy-policy" className='text-xs font-bold uppercase tracking-widest text-slate-400 hover:text-primary transition-colors cursor-pointer underline whitespace-nowrap'>Privacy Policy</Link>
-          <a className='text-xs font-bold uppercase tracking-widest text-slate-400 hover:text-primary transition-colors cursor-pointer underline whitespace-nowrap'>Terms of Service</a>
+          <Link href="/terms-service" className='text-xs font-bold uppercase tracking-widest text-slate-400 hover:text-primary transition-colors cursor-pointer underline whitespace-nowrap'>Terms and Service</Link>
           <a className='text-xs font-bold uppercase tracking-widest text-slate-400 hover:text-primary transition-colors cursor-pointer underline'>Security</a>
           <Link href="/contact-us" className='text-xs font-bold uppercase tracking-widest text-slate-400 hover:text-primary transition-colors cursor-pointer underline whitespace-nowrap'>Contact Us</Link>
         </div>
