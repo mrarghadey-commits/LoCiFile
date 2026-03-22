@@ -54,7 +54,7 @@ const Navbar = () => {
                 <ChevronDown className="transition-transform group-hover:rotate-180 duration-200" />
                 <div className=" absolute top-full w-48 mt-2 -left-12 flex flex-col opacity-0 group-hover:opacity-100 translate-y-2 group-hover:translate-y-0 invisible group-hover:visible transition-all duration-200 bg-white dark:bg-backgroundDark shadow-lg py-2 z-50 border rounded-2xl border-slate-200 dark:border-primary/50">
                     <Link href="/image-compressor" className='px-4 py-2 hover:bg-primary/10 dark:hover:text-white hover:text-slate-800 transition-all duration-200'>Image Compressor</Link>
-                    <Link href="/resize-image" className='px-4 py-2 hover:bg-primary/10 dark:hover:text-white hover:text-slate-800 transition-all duration-200'>Image Resizer</Link>
+                    <Link href="/passport-image-resizer" className='px-4 py-2 hover:bg-primary/10 dark:hover:text-white hover:text-slate-800 transition-all duration-200'>Image Resizer</Link>
                 </div>
             </div>
             <div className="flex gap-1.5 items-center hover:text-primary transition-colors">
@@ -70,7 +70,7 @@ const Navbar = () => {
                 </div>
                 <div className={` overflow-hidden transition-all duration-300 ${isImageToolOpen? "max-h-40 mt-2 " : "max-h-0" } flex flex-col gap-2 ml-3 pl-2 text-sm border-l border-primary`}>
                     <Link href="/image-compressor" onClick={(e)=>{e.stopPropagation(); setIsMobile(false);}} className='hover:bg-primary p-2 rounded-xl'>Image Compressor</Link>
-                    <Link href="/resize-image" onClick={(e)=>{e.stopPropagation(); setIsMobile(false);}} className='hover:bg-primary p-2 rounded-xl'>Image Resizer</Link>
+                    <Link href="/passport-image-resizer" onClick={(e)=>{e.stopPropagation(); setIsMobile(false);}} className='hover:bg-primary p-2 rounded-xl'>Image Resizer</Link>
                 </div>
             </div>
             <Link href='/pdf-compressor' onClick={()=> setIsMobile(false)} className='hover:bg-primary rounded-2xl p-2 flex gap-1.5 items-center border-b border-primary/70'><FileText size={18}/>PDF Tool</Link>

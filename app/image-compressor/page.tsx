@@ -138,11 +138,7 @@ export default async function Page() {
             {/* SEO content */}
             <section>
                 <div className="glass lg:px-20 px-5 md:py-5  pb-4 rounded-3xl border-primary/20">
-                    <h1 className=" text-2xl underline">Compress Image to any size instantly Online Free tool</h1>
-
-                    <p>Looking to compress an image to a specific size? This free online tool helps you reduce image size to exactly that acording to your needed without noticeable quality loss.
-                        Works with JPG, PNG, and WebP formats. No signup required and processing happens directly in your browser.</p>
-                    <h2 className=" text-xl underline">Key Features:</h2>
+                    <h2 className=" text-xl underline">Features of Compress Image</h2>
 
                     <ul className=" list-disc pl-4 mb-1">
                         <li>Compress image to any size instantly</li>
@@ -160,24 +156,20 @@ export default async function Page() {
                         <li>Download image</li>
                     </ol>
                     <h2 className=" text-xl mb-0.5 underline">Why Compress Image to a specific size?</h2>
-
-                    <p>
-                        Compressing images to a specific size is useful for:
-                    </p>
-
                     <ul className=" list-decimal pl-4 mb-1">
                         <li>Uploading images to websites with size limits</li>
                         <li>Submitting forms or exam portals</li>
                         <li>Reducing storage space</li>
-                        <li>Improving website loading speed</li>
+                        <li>Improving website performance</li>
                         <li>Sharing images on email or WhatsApp</li>
                     </ul>
                     <h2 className=" text-xl underline">Supported Formats</h2>
 
                     <p>
                         This tool supports JPG, JPEG, PNG, and WebP images.
+                        You can compress any of these formats easily.
                     </p>
-                    <h2 className=" text-xl mb-2 underline">Try Other Image Sizes</h2>
+                    <h2 className=" text-xl mb-2 underline">Try other image sizes</h2>
 
                     <div className="flex flex-wrap gap-2 mb-2">
                         {["20kb", "50kb", "100kb", "200kb", "400kb", "500kb"].map(s => (
@@ -189,17 +181,17 @@ export default async function Page() {
                             Compress to 1MB
                         </Link>
                     </div>
-                    <h2 className=" text-xl mb-2 underline">Try our Other popular tools</h2>
+                    <h2 className=" text-xl mb-2 underline">Try our other popular tools</h2>
                     <div className="flex flex-wrap gap-2 mb-2">
-                        {/* {["20kb", "50kb", "100kb", "200kb", "400kb", "500kb"].map(s => (
+                        {["10kb", "20kb", "50kb", "100kb", "150kb", "200kb", "300kb", "400kb", "500kb", "1mb"].map(s => (
                             <Link key={s} href={`/compress-pdf-to-${s}`} className=" border p-2 border-primary/40 hover:bg-primary/40 rounded-xl">
-                                Compress to {s.toUpperCase()}
+                                Compress PDF to {s.toUpperCase()}
                             </Link>
-                        ))} */}
+                        ))}
                         <Link href={`/pdf-compressor`} className=" border p-2 border-primary/40 hover:bg-primary/40 rounded-xl">
                             Compress PDF
                         </Link>
-                        <Link href={`/image-resize`} className=" border p-2 border-primary/40 hover:bg-primary/40 rounded-xl">
+                        <Link href={`/passport-image-resizer`} className=" border p-2 border-primary/40 hover:bg-primary/40 rounded-xl">
                             Resize Image
                         </Link>
                     </div>
@@ -239,8 +231,8 @@ export default async function Page() {
                     </div>
                     <p className=" mt-1">Try it now for fast and secure compression. It is Completely free</p>
                     <p className=" mt-1">
-                        Use this free image compressor to reduce image size quickly and securely.
-                        Perfect for students, professionals, and developers who need optimized images instantly.
+                        use this free tool to compress image quickly and securely.
+                        Perfect for passport, exam forms, and online uploads.
                     </p>
                 </div>
             </section>

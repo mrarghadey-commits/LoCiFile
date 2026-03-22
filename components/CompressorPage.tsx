@@ -4,7 +4,7 @@ import { compressToTarget } from "@/tools/imagecompression";
 import { CircleUserIcon, CloudUpload, Download, FileImage, Hd, Loader, ShieldCheck, SlidersHorizontal, SlidersHorizontalIcon, WandSparkles, Zap } from "lucide-react";
 import Image from "next/image";
 
-export default function CompressorPage({targetSize}:{targetSize: number}) {
+export default function CompressorPage({ targetSize }: { targetSize: number }) {
   const [target, setTarget] = useState(targetSize);
   const [file, setFile] = useState<File | null>(null)
   const [preview, setPreview] = useState('')
@@ -17,7 +17,7 @@ export default function CompressorPage({targetSize}:{targetSize: number}) {
   const [dragging, setDragging] = useState(false)
   const [completed, setCompleted] = useState(50)
 
-  function uploadHandle(file: File | undefined){
+  function uploadHandle(file: File | undefined) {
     if (!file) return;
     setPreview('')
     setFileName('')
@@ -33,7 +33,7 @@ export default function CompressorPage({targetSize}:{targetSize: number}) {
       return
     }
     setprogress(true)
-    const compressed = await compressToTarget(file, target, (p)=> setCompleted(p)) // compressed under 100 KB
+    const compressed = await compressToTarget(file, target, (p) => setCompleted(p)) // compressed under 100 KB
     console.log(compressed)
     setNewSize(compressed.size / 1024)
     setUrl(URL.createObjectURL(compressed));
@@ -48,15 +48,19 @@ export default function CompressorPage({targetSize}:{targetSize: number}) {
           <span className=" uppercase text-primary bg-primary/20 text-[10px] font-bold px-2 py-0.5 tracking-widest rounded">Secure WASM</span>
           <span className="bg-emerald-500/20 text-emerald-400 uppercase font-bold text-[10px] px-2 py-0.5 tracking-widest rounded ">Local Processing</span>
         </div>
-        <h1 className=" md:text-5xl text-xl font-bold md:mb-4 mb-1">Professional Image Compressor</h1>
-        <p className=" text-slate-400 max-w-2xl md:text-lg text-sm">Private, local-first processing. Your photos never leave your browser, ensuring 100% privacy and lightning-fast speed. Upload your image and compress it to {target}KB.</p>
+        <h1 className=" md:text-5xl text-xl font-bold md:mb-4 mb-1">Compress Image to {targetSize} KB</h1>
+
+        <p className=" text-slate-400 max-w-2xl md:text-lg text-sm">
+          Compress image to {targetSize}KB online using our free tool.
+          Reduce image size to {targetSize}KB without losing quality.
+          Works instantly in your browser with no upload required.
+        </p>
       </div>
       <div className=" grid lg:grid-cols-12 md:gap-8 ">
         <div className="lg:col-span-8 md:space-y-4 space-y-2">
           <div
-            className={` flex flex-col items-center md:gap-4 gap-1 text-center justify-center rounded-xl border-2 border-dashed bg-primary/5 hover:bg-primary/10 hover:border-primary transition-all duration-200 cursor-pointer md:px-6 px-3 pb-3 pt-1 sm:py-10  ${
-              dragging ? "border-primary bg-primary/10" : "border-primary/30"
-            }`}
+            className={` flex flex-col items-center md:gap-4 gap-1 text-center justify-center rounded-xl border-2 border-dashed bg-primary/5 hover:bg-primary/10 hover:border-primary transition-all duration-200 cursor-pointer md:px-6 px-3 pb-3 pt-1 sm:py-10  ${dragging ? "border-primary bg-primary/10" : "border-primary/30"
+              }`}
             onClick={() => inputRef.current?.click()}
             onDragOver={(e) => e.preventDefault()}
             onDrop={(e) => {
@@ -71,18 +75,18 @@ export default function CompressorPage({targetSize}:{targetSize: number}) {
               {preview &&
                 <div className="">
                   <span className="  text-xs font-medium backdrop-blur-xs text-slate-600 dark:text-slate-300">{Math.ceil(oriSize)} KB</span>
-                  <Image height={100} width={100} alt="hello" src={preview} className="w-full h-32 object-contain md:hidden cursor-pointer" onClick={(e) => {e.stopPropagation(); window.open(preview, "_blank");}}></Image>
+                  <Image height={100} width={100} alt="hello" src={preview} className="w-full h-32 object-contain md:hidden cursor-pointer" onClick={(e) => { e.stopPropagation(); window.open(preview, "_blank"); }}></Image>
                 </div>
-                }
+              }
               {url &&
                 <div className=" ">
                   <span className=" text-xs font-medium backdrop-blur-md text-slate-600 dark:text-slate-300">{Math.ceil(newSize)} KB</span>
-                  <Image height={100} width={100} alt="hello" src={url} className="w-full h-32 object-contain md:hidden cursor-pointer" onClick={(e) => {e.stopPropagation(); window.open(url, "_blank");}}></Image>
+                  <Image height={100} width={100} alt="hello" src={url} className="w-full h-32 object-contain md:hidden cursor-pointer" onClick={(e) => { e.stopPropagation(); window.open(url, "_blank"); }}></Image>
                 </div>
-                }
+              }
             </div>
             <div className={` flex flex-col items-center md:gap-4 gap-1 text-center justify-center ${preview ? " hidden md:block " : " block"}`}>
-              <CloudUpload className="" size={70}/>
+              <CloudUpload className="" size={70} />
               <p className="md:text-xl text-sm font-bold">Drag & drop an image here or click to upload</p>
               <p className="text-slate-400 text-sm mt-1 mb-1">Supports PNG, JPG, WebP. Max 25MB.</p>
             </div>
@@ -105,8 +109,8 @@ export default function CompressorPage({targetSize}:{targetSize: number}) {
                 <span className=" text-xs font-medium dark:bg-slate-800 bg-slate-200 rounded px-2 py-0.5 text-slate-600 dark:text-slate-300">{Math.ceil(oriSize)} KB</span>
               </div>
               <div className=" aspect-video w-full rounded-lg dark:bg-slate-900 bg-slate-200 relative group">
-                <Image height={100} width={100} alt="hello" src={ preview || '/icon.png'} className={`w-full h-full object-contain ${preview ?"" :"opacity-50 grayscale group-hover:grayscale-0"} transition-all`} ></Image>
-                { !preview && <div className=" absolute inset-0 flex items-center justify-center">
+                <Image height={100} width={100} alt="hello" src={preview || '/icon.png'} className={`w-full h-full object-contain ${preview ? "" : "opacity-50 grayscale group-hover:grayscale-0"} transition-all`} ></Image>
+                {!preview && <div className=" absolute inset-0 flex items-center justify-center">
                   <span className=" dark:text-slate-50 text-sm font-medium ">No Image Selected</span>
                 </div>}
               </div>
@@ -118,9 +122,9 @@ export default function CompressorPage({targetSize}:{targetSize: number}) {
               </div>
               <div className="aspect-video w-full rounded-lg dark:bg-slate-900 bg-slate-200 relative group">
                 {url ? <Image height={100} width={100} alt="hello" src={url} className="w-full h-full object-contain"></Image>
-                :<div className="absolute inset-0 flex items-center justify-center">
-                  <FileImage size={50} className="text-slate-800" />
-                </div>}
+                  : <div className="absolute inset-0 flex items-center justify-center">
+                    <FileImage size={50} className="text-slate-800" />
+                  </div>}
               </div>
             </div>
           </div>
@@ -129,19 +133,19 @@ export default function CompressorPage({targetSize}:{targetSize: number}) {
         {/* right side */}
         <div className="lg:col-span-4 md:space-y-6 space-y-3">
           <div className=" bg-white dark:bg-slate-900/50 border border-slate-200 dark:border-primary/20 rounded-xl md:p-6 p-2 shadow-sm ">
-            <h2 className=" text-lg font-bold md:mb-6 mb-2 flex items-center gap-4"><SlidersHorizontalIcon className="text-primary"/> Compressed Presets </h2>
+            <h2 className=" text-lg font-bold md:mb-6 mb-2 flex items-center gap-4"><SlidersHorizontalIcon className="text-primary" /> Compressed Presets </h2>
             <div className=" flex flex-col gap-2">
               <div className="grid grid-cols-3 md:grid-cols-1 md:gap-2 gap-1">
                 <label htmlFor="50" className=" cursor-pointer">
-                  <input className=" peer hidden" type="radio" name="target" id="50" value={50} checked = {target == 50} onChange={(e) => setTarget(Number(e.target.value))} />
+                  <input className=" peer hidden" type="radio" name="target" id="50" value={50} checked={target == 50} onChange={(e) => setTarget(Number(e.target.value))} />
                   <div className=" w-full h-full peer-checked:bg-primary/70 peer-checked:hover:text-slate-300 md:text-base text-xs flex items-center justify-center hover:text-primary font-bold md:p-4 p-2 rounded-lg border border-slate-200 dark:border-primary/20 hover:border-primary/50 transition-all bg-primary/10">Target 50KB</div>
                 </label>
                 <label htmlFor="100" className=" cursor-pointer">
-                  <input className=" peer hidden" type="radio" name="target" id="100" value={100} checked = {target == 100} onChange={(e) => setTarget(Number(e.target.value))} />
+                  <input className=" peer hidden" type="radio" name="target" id="100" value={100} checked={target == 100} onChange={(e) => setTarget(Number(e.target.value))} />
                   <div className=" w-full h-full peer-checked:bg-primary/70 peer-checked:hover:text-slate-300 md:text-base text-xs flex items-center justify-center hover:text-primary font-bold md:p-4 p-2 rounded-lg border border-slate-200 dark:border-primary/20 hover:border-primary/50 transition-all bg-primary/10">Target 100KB</div>
                 </label>
                 <label htmlFor="200" className=" cursor-pointer">
-                  <input className=" peer hidden" type="radio" name="target" id="200" value={200} checked = {target == 200} onChange={(e) => setTarget(Number(e.target.value))} />
+                  <input className=" peer hidden" type="radio" name="target" id="200" value={200} checked={target == 200} onChange={(e) => setTarget(Number(e.target.value))} />
                   <div className=" w-full h-full peer-checked:bg-primary/70 peer-checked:hover:text-slate-300 md:text-base text-xs flex items-center justify-center hover:text-primary font-bold md:p-4 p-2 rounded-lg border border-slate-200 dark:border-primary/20 hover:border-primary/50 transition-all bg-primary/10">Target 200KB</div>
                 </label>
               </div>
@@ -149,30 +153,30 @@ export default function CompressorPage({targetSize}:{targetSize: number}) {
                 <p className=" font-bold group-hover:text-primary ">Custom Size</p>
                 <div className=" relative mt-1 w-full">
                   <span className=" absolute right-3 top-1/2 -translate-y-1/2 md:text-lg text-sm font-bold text-primary/70 ">KB</span>
-                  <input type="number" name="targetKB" id="typeKB" min={0} value={target} placeholder="Enter Target KB" onChange={(e) => {setTarget(Number(e.target.value))}} className="w-full dark:bg-slate-900 bg-white border dark:border-primary/30 border-slate-200 rounded pl-5 pr-10 py-1.5 md:text-lg text-sm outline-none dark:text-slate-100 text-slate-900 focus:ring-1 focus:ring-primary transition-all" />
+                  <input type="number" name="targetKB" id="typeKB" min={0} value={target} placeholder="Enter Target KB" onChange={(e) => { setTarget(Number(e.target.value)) }} className="w-full dark:bg-slate-900 bg-white border dark:border-primary/30 border-slate-200 rounded pl-5 pr-10 py-1.5 md:text-lg text-sm outline-none dark:text-slate-100 text-slate-900 focus:ring-1 focus:ring-primary transition-all" />
                 </div>
               </div>
             </div>
             <div className="md:mt-6 mt-2 flex flex-col gap-3">
-              <button onClick={()=>{if (file) compress(file)}} disabled = {Boolean(url)}  className= {` cursor-pointer relative overflow-hidden w-full md:py-4 py-3 bg-primary md:text-base text-sm text-white ${!url && "active:scale-95 active:bg-primary/50"} disabled:bg-slate-800 disabled:text-slate-600 disabled:cursor-not-allowed font-bold rounded-lg hover:brightness-110 transition-all flex justify-center items-center gap-2 text-center`}> 
+              <button onClick={() => { if (file) compress(file) }} disabled={Boolean(url)} className={` cursor-pointer relative overflow-hidden w-full md:py-4 py-3 bg-primary md:text-base text-sm text-white ${!url && "active:scale-95 active:bg-primary/50"} disabled:bg-slate-800 disabled:text-slate-600 disabled:cursor-not-allowed font-bold rounded-lg hover:brightness-110 transition-all flex justify-center items-center gap-2 text-center`}>
                 {
                   progress ?
-                  <>
-                    <Loader className=" motion-safe:animate-spin z-10 " strokeWidth={2.75}/>
-                    <div className=" absolute inset-0 rounded-lg bg-linear-to-r from-emerald-600 to-green-400 transition-[width] duration-300 ease-out" style={{width: `${completed}%`}}></div>
-                  </>
-                  : <div className="flex justify-center items-center gap-2"><WandSparkles/> Compress</div>
+                    <>
+                      <Loader className=" motion-safe:animate-spin z-10 " strokeWidth={2.75} />
+                      <div className=" absolute inset-0 rounded-lg bg-linear-to-r from-emerald-600 to-green-400 transition-[width] duration-300 ease-out" style={{ width: `${completed}%` }}></div>
+                    </>
+                    : <div className="flex justify-center items-center gap-2"><WandSparkles /> Compress</div>
                 }
               </button>
-              <div className={` w-full md:py-4 py-3 md:text-base text-sm ${ url? " bg-primary text-white cursor-pointer active:scale-95 active:bg-primary/50 " :'bg-slate-800 text-slate-600 cursor-not-allowed'} font-bold rounded-lg`} >
-                <a href={url || undefined} download={ url ? `compressed-${fileName}` : undefined} className={`flex items-center justify-center gap-2 ${url? "cursor-pointer" : "cursor-not-allowed"}`}>
+              <div className={` w-full md:py-4 py-3 md:text-base text-sm ${url ? " bg-primary text-white cursor-pointer active:scale-95 active:bg-primary/50 " : 'bg-slate-800 text-slate-600 cursor-not-allowed'} font-bold rounded-lg`} >
+                <a href={url || undefined} download={url ? `compressed-${fileName}` : undefined} className={`flex items-center justify-center gap-2 ${url ? "cursor-pointer" : "cursor-not-allowed"}`}>
                   <Download /> Download
                 </a>
               </div>
             </div>
           </div>
           <div className="flex gap-3 bg-primary/10 border border-primary/20 rounded-xl md:p-5 p-3 ">
-            <ShieldCheck size={40} className="text-primary"/>
+            <ShieldCheck size={40} className="text-primary" />
             <div className="">
               <h4 className="font-bold text-sm">Privacy Guarantee</h4>
               <p className=" text-xs text-slate-400 mt-1 leading-relaxed">Processing happens locally in your browser using WebAssembly. Your data is never uploaded to any server.</p>

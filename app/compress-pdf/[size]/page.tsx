@@ -24,7 +24,7 @@ export async function generateMetadata({ params }: any) {
   size = (size ?? "").toLowerCase();
 
   return {
-    title: `Compress pdf to ${size} Online Free (No Quality Loss)`,
+    title: `Compress PDF to ${size} Online (Free, Fast & Secure)`,
     description: `Reduce pdf size to ${size}. Fast, free and secure pdf compressor.`,
     keywords: [
       `compress pdf to ${size}`,
@@ -33,9 +33,6 @@ export async function generateMetadata({ params }: any) {
       "compress pdf online free",
       "wasm pdf compressor",
       "compress pdf online",
-      "client side pdf compression",
-      "no upload pdf compressor",
-      "browser pdf compression",
     ],
     alternates: {
       canonical: `https://locifile.in/compress-pdf-to-${size}`,
@@ -80,7 +77,15 @@ export default async function Page({ params }: Props) {
     mainEntity: [
       {
         "@type": "Question",
-        name: `Is this pdf compressor private?</`,
+        name: `How to compress PDF to ${size} online?`,
+        acceptedAnswer: {
+          "@type": "Answer",
+          text: `Upload your file and our tool will automatically compress PDF to ${size}.`,
+        },
+      },
+      {
+        "@type": "Question",
+        name: `Is this pdf compressor private?`,
         acceptedAnswer: {
           "@type": "Answer",
           text: `Yes. pdfs are processed in your browser and never uploaded.`,
@@ -88,10 +93,10 @@ export default async function Page({ params }: Props) {
       },
       {
         "@type": "Question",
-        name: `Can I compress pdf to {size} exactly?`,
+        name: `Can I compress pdf to ${size} exactly?`,
         acceptedAnswer: {
           "@type": "Answer",
-          text: `Yes, our tool tries to compress pdf as close as possible to {size}.`,
+          text: `Yes, our tool tries to compress pdf as close as possible to ${size}.`,
         },
       },
       {
@@ -165,45 +170,30 @@ export default async function Page({ params }: Props) {
     breadcrumb,
     howTo
   ];
-  function random(arr: string[]) {
-    return arr[Math.floor(Math.random() * arr.length)];
-  }
-  const titles = [
-    `Compress pdf to ${size} Online Free`,
-    `Reduce pdf Size to ${size} Instantly`,
-    `Free pdf Compressor to ${size}`,
-  ];
-  const intros = [
-    `Need to compress an pdf to ${size}? This free online tool helps you do it quickly without losing quality.`,
-    `Easily reduce pdf size to ${size} using our fast and secure pdf compressor.`,
-    `Looking for a way to convert your pdf to ${size}? Use our free browser-based tool instantly.`,
-    `Looking to compress an pdf to ${size}? This free online tool helps you reduce pdf size to exactly ${size} without noticeable quality loss.
-                        Works with JPG, PNG, and WebP formats. No signup required and processing happens directly in your browser.`
-  ];
-  const endings = [
-    "Try it now for fast and secure compression.",
-    "No installation needed, works instantly.",
-    "Completely free and easy to use.",
-  ];
-  const intro = random(intros);
-  const title = random(titles);
-  const ending = random(endings);
   return (
     <div className="min-h-screen dark:bg-[#0a0a0f] bg-slate-100 dark:text-white text-slate-900">
       <div className="max-w-6xl mx-auto px-4 sm:px-6 py-4 sm:py-6 w-full">
         <div className="text-center mb-4 sm:mb-6">
-          <h1 className="text-2xl sm:text-3xl font-black tracking-tight">LoCiFiLe PDF Compressor</h1>
+          <h1 className="text-2xl sm:text-3xl font-black tracking-tight">Compress PDF to {size}</h1>
           <p className="dark:text-slate-400 text-slate-500 text-sm mt-1">
-            Reduce file size without losing quality. Fast, secure, and completely free.
+            Compress PDF to {size} online using our free tool.
+            Reduce PDF size to {size} without losing quality.
           </p>
         </div>
         <CompressTool targetSize={sizeInKB} />
       </div>
       <div className="lg:px-20 px-5 md:py-5 mb-3 mx-1  pb-4 pt-2 rounded-3xl border border-primary/20">
-        <h1 className=" text-2xl underline">{title}</h1>
+        <h2 className=" text-2xl underline">Compress PDF to {size} Online (Free, Fast & Secure)</h2>
 
-        <p>{intro}</p>
-        <h2 className=" text-xl underline">Key Features:</h2>
+        <p>Compress PDF to {size} online using our free tool.
+          Reduce PDF size to {size} without losing quality.
+          Works instantly in your browser with no upload required.</p>
+        <h2 className=" text-2xl underline">Reduce PDF size to {size} without losing quality</h2>
+        <p>
+          You can easily reduce PDF size to {size} for email, forms, and uploads
+          while keeping readability intact.
+        </p>
+        <h2 className=" text-xl underline">Features of PDF Compressor to {size}</h2>
 
         <ul className=" list-disc pl-4 mb-1">
           <li>Compress pdf to {size} instantly</li>
@@ -211,13 +201,18 @@ export default async function Page({ params }: Props) {
           <li>100% secure (no server upload)</li>
           <li>Fast processing using browser compression</li>
         </ul>
-        <h2 className=" text-xl underline">How to Compress pdf to {size}</h2>
+        <h2 className=" text-xl underline">How to Compress pdf to {size} online?</h2>
 
         <ol className=" list-decimal pl-4 mb-2">
           <li>Upload your pdf file</li>
           <li>Start Compression to {size}</li>
           <li>Download pdf</li>
         </ol>
+        <h2 className=" text-xl mb-0.5 underline">Compress PDF to exact {size} online</h2>
+        <p>
+          Our tool tries to compress PDF to exact {size} as close as possible
+          while maintaining readability and quality.
+        </p>
         <h2 className=" text-xl mb-0.5 underline">Why Compress pdf to {size}?</h2>
 
         <p>
@@ -231,31 +226,29 @@ export default async function Page({ params }: Props) {
           <li>Improving website loading speed</li>
           <li>Sharing pdf on email or WhatsApp</li>
         </ul>
-        <h2 className=" text-xl underline">Supported Formats</h2>
+        <h2 className=" text-xl mb-2 underline">Try other PDF compression sizes below:</h2>
 
-        <p>
-          This tool supports JPG, JPEG, PNG, and WebP pdf.
-          You can compress any of these formats to {size} easily.
-        </p>
-        <h2 className=" text-xl mb-2 underline">Try Other pdf Sizes</h2>
-
-        <div className="flex flex-wrap gap-2 mb-2">
-          {["20kb", "50kb", "100kb", "200kb", "400kb", "500kb"].map(s => (
+        <div className="flex flex-wrap gap-2 mb-2 text-sm md:text-base">
+          {["10kb", "20kb", "50kb", "100kb", "200kb", "400kb", "500kb", "1mb"].map(s => (
             <Link key={s} href={`/compress-pdf-to-${s}`} className=" border p-2 border-primary/40 hover:bg-primary/40 rounded-xl">
               Compress to {s.toUpperCase()}
             </Link>
           ))}
-          <Link href={`/compress-pdf-to-1000kb`} className=" border p-2 border-primary/40 hover:bg-primary/40 rounded-xl">
-            Compress to 1MB
-          </Link>
+        </div>
+        <h2 className=" text-xl mb-2 underline">Popular compression tools</h2>
+
+        <div className="flex flex-wrap gap-2 mb-2 text-sm md:text-base">
+          <Link href="/compress-pdf-to-100kb" className=" border p-2 border-primary/40 hover:bg-primary/40 rounded-xl">Compress PDF to 100KB</Link>
+          <Link href="/compress-pdf-to-200kb" className=" border p-2 border-primary/40 hover:bg-primary/40 rounded-xl">Compress PDF to 200KB</Link>
+          <Link href="/compress-image-to-50kb" className=" border p-2 border-primary/40 hover:bg-primary/40 rounded-xl">Compress Image to 50KB</Link>
         </div>
         <h2 className=" text-xl mb-2 underline">Try our Other tools</h2>
-        <div className="flex flex-wrap gap-2 mb-2">
+        <div className="flex flex-wrap gap-2 mb-2 text-sm md:text-base">
 
           <Link href={`/image-compressor`} className=" border p-2 border-primary/40 hover:bg-primary/40 rounded-xl">
             Compress Image
           </Link>
-          <Link href={`/image-resize`} className=" border p-2 border-primary/40 hover:bg-primary/40 rounded-xl">
+          <Link href={`/passport-image-resizer`} className=" border p-2 border-primary/40 hover:bg-primary/40 rounded-xl">
             Resize Image
           </Link>
         </div>
@@ -275,6 +268,12 @@ export default async function Page({ params }: Props) {
         <h3 className="text-2xl font-bold md:mb-6 mb-3">Frequently Asked Questions</h3>
         <div className="md:space-y-6 space-y-3">
           <div>
+            <h3 className="font-bold dark:text-slate-200 text-slate-600 mb-2">How to compress PDF to {size} online?</h3>
+            <p className="text-slate-400 text-sm">
+              Upload your file and our tool will automatically compress PDF to {size}.
+            </p>
+          </div>
+          <div>
             <h3 className="font-bold dark:text-slate-200 text-slate-600 mb-2">Is it really secure?</h3>
             <p className="text-slate-400 text-sm">Yes. Because we use WebAssembly (WASM), all processing
               happens locally on your computer. Your data never leaves your browser.</p>
@@ -287,11 +286,11 @@ export default async function Page({ params }: Props) {
           </div>
           <div>
             <h3 className="font-bold dark:text-slate-200 text-slate-600 mb-2">Is this pdf compressor private?</h3>
-            <p className="text-slate-400 text-sm">Yes. pdf are processed in your browser and never uploaded.</p>
+            <p className="text-slate-400 text-sm">Yes. PDF files are processed in your browser and never uploaded.</p>
           </div>
           <div>
-            <h3 className="font-bold dark:text-slate-200 text-slate-600 mb-2">Does compressing pdf to ${size} reduce quality?</h3>
-            <p className="text-slate-400 text-sm">No, we use smart compression to maintain quality when compressing pdf to ${size}.</p>
+            <h3 className="font-bold dark:text-slate-200 text-slate-600 mb-2">Does compressing pdf to {size} reduce quality?</h3>
+            <p className="text-slate-400 text-sm">No, we use smart compression to maintain quality when compressing pdf to {size}.</p>
           </div>
           <div>
             <h3 className="font-bold dark:text-slate-200 text-slate-600 mb-2">Why is it faster than other tools?</h3>
@@ -301,11 +300,8 @@ export default async function Page({ params }: Props) {
           </div>
           <p className=" flex gap-2 p-2 bg-primary/10 rounded-2xl items-center border border-primary/50"><Lock size={18} /> Your pdf never leave your device</p>
         </div>
-        <p className=" mt-1">{ending}</p>
-        <p className=" mt-1">
-          Use this free pdf compressor to reduce pdf size to {size} quickly and securely.
-          Perfect for students, professionals, and developers who need optimized PDF instantly.
-        </p>
+        <p className=" mt-1">Use this free tool to compress PDF to {size} quickly and securely.
+          Perfect for passport, exam forms, and online uploads.</p>
       </div>
       <script
         type="application/ld+json"

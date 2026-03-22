@@ -117,7 +117,7 @@ const page = () => {
               <div className="h-full dark:bg-red-500/50 bg-rose-500 w-0 group-hover:w-full group-active:w-full transition-all duration-700"></div>
             </div>
           </Link>
-          <Link href='/resize-image' className=" md:p-8 p-4 rounded-2xl group bg-white dark:bg-primary/5 border dark:border-primary/50 border-slate-200 shadow-sm ">
+          <Link href='/passport-image-resizer' className=" md:p-8 p-4 rounded-2xl group bg-white dark:bg-primary/5 border dark:border-primary/50 border-slate-200 shadow-sm ">
             <div className="md:mb-6 mb-3 flex justify-between items-start">
               <div
                 className="w-14 h-14 rounded-xl dark:bg-blue-500/20 bg-blue-50 text-blue-600 flex items-center justify-center border border-blue-500/30">
@@ -213,12 +213,12 @@ const page = () => {
             {["PDF", "Image"].map(tool => (
 
               ["20kb", "50kb", "100kb", "200kb", "400kb", "500kb"].map(s => (
-                <Link key={s} href={`/compress-image-to-${s}`} className=" border p-2 border-primary/40 hover:bg-primary/40 rounded-xl">
+                <Link key={s} href={`/compress-${tool.toLocaleLowerCase()}-to-${s}`} className=" border p-2 border-primary/40 hover:bg-primary/40 rounded-xl">
                   Compress {tool} to {s.toUpperCase()}
                 </Link>
               ))
             ))}
-            <Link href={`/resize-image`} className=" border p-2 border-primary/40 hover:bg-primary/40 rounded-xl">
+            <Link href={`/passport-image-resizer`} className=" border p-2 border-primary/40 hover:bg-primary/40 rounded-xl">
               Resize Image
             </Link>
           </div>

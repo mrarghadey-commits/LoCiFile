@@ -23,7 +23,7 @@ export default function sitemap() {
     { url: baseUrl, priority: 1 },
     { url: `${baseUrl}/image-compressor` },
     { url: `${baseUrl}/pdf-compressor` },
-    { url: `${baseUrl}/image-resizer` },
+    { url: `${baseUrl}/passport-image-resizer` },
     ...imagePages,
     ...pdfPages,
   ];

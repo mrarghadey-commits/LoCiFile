@@ -15,9 +15,6 @@ export const metadata: Metadata = {
     "compress PDF online free",
     "wasm PDF compressor",
     "compress PDF online",
-    "client side PDF compression",
-    "no upload PDF compressor",
-    "browser PDF compression",
   ],
   alternates: {
     canonical: "https://locifile.in/pdf-compressor",
@@ -133,7 +130,7 @@ export default function Page() {
     <div className="min-h-screen dark:bg-[#0a0a0f] bg-slate-100 dark:text-white text-slate-900">
       <div className="max-w-6xl mx-auto px-4 sm:px-6 py-4 sm:py-6 w-full">
         <div className="text-center mb-4 sm:mb-6">
-          <h1 className="text-2xl sm:text-3xl font-black tracking-tight">LoCiFiLe PDF Compressor</h1>
+          <h1 className="text-2xl sm:text-3xl font-black tracking-tight">PDF Compressor</h1>
           <p className="dark:text-slate-400 text-slate-500 text-sm mt-1">
             Reduce file size without losing quality. Fast, secure, and completely free.
           </p>
@@ -141,11 +138,16 @@ export default function Page() {
         <CompressTool targetSize={200} />
       </div>
       <div className="glass lg:px-20 px-5 md:py-5  pb-4 rounded-3xl border-primary/20">
-        <h1 className=" text-2xl underline">Compress PDF to any size instantly Online Free tool</h1>
+        <h2 className=" text-2xl underline">Compress PDF to any size instantly Online Free tool</h2>
 
         <p>Looking to compress an PDF to a specific size? This free online tool helps you reduce PDF size to exactly that acording to your needed without noticeable quality loss.
           Works with JPG, PNG, and WebP formats. No signup required and processing happens directly in your browser.</p>
-        <h2 className=" text-xl underline">Key Features:</h2>
+        <h2 className=" text-2xl underline">Reduce PDF size without losing quality</h2>
+        <p>
+          You can easily reduce PDF size for email, forms, and uploads
+          while keeping readability intact.
+        </p>
+        <h2 className=" text-xl underline">Features of PDF Compressor</h2>
 
         <ul className=" list-disc pl-4 mb-1">
           <li>Compress PDF to any size instantly</li>
@@ -154,7 +156,7 @@ export default function Page() {
           <li>100% secure (no server upload)</li>
           <li>Fast processing using browser compression</li>
         </ul>
-        <h2 className=" text-xl underline">How to Compress PDF</h2>
+        <h2 className=" text-xl underline">How to Compress PDF online</h2>
 
         <ol>
           <li>Upload your PDF file</li>
@@ -164,10 +166,6 @@ export default function Page() {
         </ol>
         <h2 className=" text-xl mb-0.5 underline">Why Compress PDF to a specific size?</h2>
 
-        <p>
-          Compressing PDF to a specific size is useful for:
-        </p>
-
         <ul className=" list-decimal pl-4 mb-1">
           <li>Uploading PDF to websites with size limits</li>
           <li>Submitting forms or exam portals</li>
@@ -175,34 +173,29 @@ export default function Page() {
           <li>Improving website loading speed</li>
           <li>Sharing PDF on email or WhatsApp</li>
         </ul>
-        <h2 className=" text-xl underline">Supported Formats</h2>
+        <h2 className=" text-xl mb-2 underline">Try other PDF compression sizes</h2>
 
-        <p>
-          This tool supports JPG, JPEG, PNG, and WebP PDF.
-        </p>
-        <h2 className=" text-xl mb-2 underline">Try Other PDF Sizes</h2>
-
-        <div className="flex flex-wrap gap-2 mb-2">
-          {["20kb", "50kb", "100kb", "200kb", "400kb", "500kb"].map(s => (
-            <Link key={s} href={`/compress-pdf-to-${s}`} className=" border p-2 border-primary/40 hover:bg-primary/40 rounded-xl">
+        <div className="flex flex-wrap gap-2 mb-2 text-sm md:text-base">
+          {["10kb", "20kb", "50kb", "100kb", "200kb", "400kb", "500kb", "1mb"].map(s => (
+            <Link key={s} href={`/compress-pdf-to-${s}`} className=" border p-2 border-primary/40 hover:bg-primary/40 rounded-xl shadow-lg shadow-primary/50">
               Compress to {s.toUpperCase()}
             </Link>
           ))}
-          <Link href={`/compress-pdf-to-1000kb`} className=" border p-2 border-primary/40 hover:bg-primary/40 rounded-xl">
-            Compress to 1MB
-          </Link>
         </div>
-        <h2 className=" text-xl mb-2 underline">Try our Other popular tools</h2>
-        <div className="flex flex-wrap gap-2 mb-2">
-          {/* {["20kb", "50kb", "100kb", "200kb", "400kb", "500kb"].map(s => (
-                            <Link key={s} href={`/compress-pdf-to-${s}`} className=" border p-2 border-primary/40 hover:bg-primary/40 rounded-xl">
-                                Compress to {s.toUpperCase()}
-                            </Link>
-                        ))} */}
-          <Link href={`/pdf-compressor`} className=" border p-2 border-primary/40 hover:bg-primary/40 rounded-xl">
-            Compress PDF
+        <h2 className=" text-xl mb-2 underline">Popular compression tools</h2>
+
+        <div className="flex flex-wrap gap-2 mb-2 text-sm md:text-base">
+          <Link href="/compress-pdf-to-100kb" className=" border p-2 border-primary/40 hover:bg-primary/40 rounded-xl shadow-lg shadow-primary/50">Compress PDF to 100KB</Link>
+          <Link href="/compress-pdf-to-200kb" className=" border p-2 border-primary/40 hover:bg-primary/40 rounded-xl shadow-lg shadow-primary/50">Compress PDF to 200KB</Link>
+          <Link href="/compress-image-to-50kb" className=" border p-2 border-primary/40 hover:bg-primary/40 rounded-xl shadow-lg shadow-primary/50">Compress Image to 50KB</Link>
+        </div>
+        <h2 className=" text-xl mb-2 underline">Try our Other tools</h2>
+        <div className="flex flex-wrap gap-2 mb-2 text-sm md:text-base">
+
+          <Link href={`/image-compressor`} className=" border p-2 border-primary/40 hover:bg-primary/40 rounded-xl shadow-lg shadow-primary/50">
+            Compress Image
           </Link>
-          <Link href={`/image-resize`} className=" border p-2 border-primary/40 hover:bg-primary/40 rounded-xl">
+          <Link href={`/passport-image-resizer`} className=" border p-2 border-primary/40 hover:bg-primary/40 rounded-xl shadow-lg shadow-primary/50">
             Resize Image
           </Link>
         </div>
