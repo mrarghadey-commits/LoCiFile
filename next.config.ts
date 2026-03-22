@@ -8,6 +8,10 @@ const nextConfig: NextConfig = {
         source: "/compress-image-to-:size",
         destination: "/compress-image/:size",
       },
+      {
+        source: "/compress-pdf-to-:size",
+        destination: "/compress-pdf/:size",
+      },
     ];
   },
 };

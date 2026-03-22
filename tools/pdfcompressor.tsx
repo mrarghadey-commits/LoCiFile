@@ -3,9 +3,9 @@
 import { useState, useRef } from "react"
 import { PDFDocument } from "pdf-lib"
 
-export default function CompressTool() {
+export default function CompressTool({targetSize}:{targetSize: number}) {
   const [file, setFile] = useState<File | null>(null)
-  const [targetKB, setTargetKB] = useState<number | string>(150)
+  const [targetKB, setTargetKB] = useState<number | string>(targetSize)
   const [preset, setPreset] = useState<"100" | "200" | "custom">("custom")
   const [original, setOriginal] = useState(0)
   const [compressed, setCompressed] = useState(0)
@@ -257,14 +257,14 @@ export default function CompressTool() {
         {file && (
           <div className="dark:bg-[#12121a] bg-white border dark:border-white/10 border-slate-200 rounded-xl px-3 py-2 flex items-center justify-between">
             <div className="flex items-center gap-2">
-              <div className="w-7 h-7 rounded-lg bg-violet-600/20 flex items-center justify-center flex-shrink-0">
+              <div className="w-7 h-7 rounded-lg bg-violet-600/20 flex items-center justify-center shrink-0">
                 <svg xmlns="http://www.w3.org/2000/svg" className="h-3.5 w-3.5 text-violet-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z" />
                 </svg>
               </div>
               <span className="text-xs dark:text-slate-300 text-slate-700 font-medium truncate max-w-[140px] sm:max-w-[220px] lg:max-w-[180px]">{file.name}</span>
             </div>
-            <span className="text-xs flex-shrink-0">
+            <span className="text-xs shrink-0">
               {blob
                 ? <span className="text-emerald-400 font-bold">Compressed ✓</span>
                 : <span className="text-slate-500">Ready · {(original / 1024).toFixed(1)} KB</span>}
@@ -277,11 +277,11 @@ export default function CompressTool() {
           <div className="dark:bg-[#12121a] bg-white border dark:border-white/10 border-slate-200 rounded-xl px-3 py-3">
             <div className="flex items-center justify-between mb-1.5">
               <span className="text-xs dark:text-slate-400 text-slate-500 truncate mr-2">{progressLabel}</span>
-              <span className="text-xs font-black text-violet-400 flex-shrink-0">{progress}%</span>
+              <span className="text-xs font-black text-violet-400 shrink-0">{progress}%</span>
             </div>
             <div className="w-full dark:bg-white/5 bg-slate-100 rounded-full h-1.5 overflow-hidden">
               <div
-                className="h-1.5 rounded-full bg-gradient-to-r from-violet-600 to-violet-400 transition-all duration-500 ease-out"
+                className="h-1.5 rounded-full bg-linear-to-r from-violet-600 to-violet-400 transition-all duration-500 ease-out"
                 style={{ width: `${progress}%` }}
               />
             </div>
@@ -313,7 +313,7 @@ export default function CompressTool() {
         <div className="hidden lg:grid grid-cols-3 gap-2">
           {featureCards.map(({ icon, color, title, desc }) => (
             <div key={title} className="dark:bg-[#12121a] bg-white border dark:border-white/5 border-slate-200 rounded-xl p-3 flex items-center gap-3">
-              <div className={`w-8 h-8 rounded-full bg-${color}-600/20 flex items-center justify-center flex-shrink-0`}>
+              <div className={`w-8 h-8 rounded-full bg-${color}-600/20 flex items-center justify-center shrink-0`}>
                 <svg xmlns="http://www.w3.org/2000/svg" className={`h-4 w-4 text-${color}-400`} fill="none" viewBox="0 0 24 24" stroke="currentColor">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d={icon} />
                 </svg>
@@ -354,7 +354,7 @@ export default function CompressTool() {
                     : "dark:border-white/5 border-slate-200 dark:bg-white/5 bg-slate-50 hover:border-violet-500/40"
                 }`}
               >
-                <div className={`w-3.5 h-3.5 rounded-full border-2 flex items-center justify-center flex-shrink-0 ${preset === key ? "border-violet-500" : "border-slate-500"}`}>
+                <div className={`w-3.5 h-3.5 rounded-full border-2 flex items-center justify-center shrink-0 ${preset === key ? "border-violet-500" : "border-slate-500"}`}>
                   {preset === key && <div className="w-1.5 h-1.5 rounded-full bg-violet-500" />}
                 </div>
                 <div className="min-w-0">
@@ -435,7 +435,7 @@ export default function CompressTool() {
         <div className="grid grid-cols-1 sm:grid-cols-3 lg:hidden gap-2">
           {featureCards.map(({ icon, color, title, desc }) => (
             <div key={title} className="dark:bg-[#12121a] bg-white border dark:border-white/5 border-slate-200 rounded-xl p-3 flex items-center gap-3">
-              <div className={`w-8 h-8 rounded-full bg-${color}-600/20 flex items-center justify-center flex-shrink-0`}>
+              <div className={`w-8 h-8 rounded-full bg-${color}-600/20 flex items-center justify-center shrink-0`}>
                 <svg xmlns="http://www.w3.org/2000/svg" className={`h-4 w-4 text-${color}-400`} fill="none" viewBox="0 0 24 24" stroke="currentColor">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d={icon} />
                 </svg>

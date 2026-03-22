@@ -4,6 +4,36 @@ import Link from 'next/link'
 import React from 'react'
 
 const page = () => {
+  const faq = {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    mainEntity: [
+      {
+        "@type": "Question",
+        name: `Is it really secure?`,
+        acceptedAnswer: {
+          "@type": "Answer",
+          text: `Yes. Because we use WebAssembly (WASM), all processing happens locally on your computer. Your data never leaves your browser.`,
+        },
+      },
+      {
+        "@type": "Question",
+        name: `Do I need to install anything?`,
+        acceptedAnswer: {
+          "@type": "Answer",
+          text: `No installation required. It works in any modern web browser that supports WASM (Chrome, Safari, Edge, Firefox).`,
+        },
+      },
+      {
+        "@type": "Question",
+        name: `Why is it faster than other tools?`,
+        acceptedAnswer: {
+          "@type": "Answer",
+          text: `Traditional tools require you to upload your file, wait for server processing, and then download. We skip the network delay entirely.`,
+        },
+      },
+    ],
+  };
   return (
     <div className=' cursor-pointer'>
       <section className="relative md:pt-14 py-5 px-6">
@@ -36,7 +66,7 @@ const page = () => {
           </div>
         </div>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          <Link href='/compress-image-to-100kb' className=" md:p-8 p-4 rounded-2xl group bg-white dark:bg-primary/5 border dark:border-primary/50 border-slate-200 shadow-sm">
+          <Link href='/image-compressor' className=" md:p-8 p-4 rounded-2xl group bg-white dark:bg-primary/5 border dark:border-primary/50 border-slate-200 shadow-sm">
             <div className="md:mb-6 mb-3 flex justify-between items-start">
               <div
                 className="w-14 h-14 rounded-xl dark:bg-green-500/20 bg-emerald-50 flex items-center justify-center border border-emerald-100 dark:border-green-500/30">
@@ -55,7 +85,7 @@ const page = () => {
                   WASM Node</span>
               </div>
             </div>
-            <h3 className="text-xl font-bold mb-2 text-slate-900 dark:text-slate-50">Image Compressor</h3>
+            <h3 className="text-xl font-bold mb-2 text-slate-900 dark:text-slate-50">Compress Image</h3>
             <p className="text-slate-400 text-sm leading-relaxed md:mb-6 mb-2">Shrink images by up to 90% instantly. Our
               local WASM engine maintains stunning visual clarity without any data upload.</p>
             <div className="h-1 hidden sm:block w-full dark:bg-white/5 bg-slate-200 rounded-full overflow-hidden">
@@ -80,14 +110,14 @@ const page = () => {
                   Node</span>
               </div>
             </div>
-            <h3 className="text-xl font-bold mb-2 text-slate-900 dark:text-slate-50">PDF Compressor</h3>
+            <h3 className="text-xl font-bold mb-2 text-slate-900 dark:text-slate-50">Compress PDF</h3>
             <p className="text-slate-400 text-sm leading-relaxed md:mb-6 mb-2">Reduce PDF file size for web or email.
               100% private processing ensures your sensitive documents never reach a server.</p>
             <div className="hidden sm:block h-1 w-full dark:bg-white/5 bg-slate-200 rounded-full overflow-hidden">
               <div className="h-full dark:bg-red-500/50 bg-rose-500 w-0 group-hover:w-full group-active:w-full transition-all duration-700"></div>
             </div>
           </Link>
-          <div className=" md:p-8 p-4 rounded-2xl group bg-white dark:bg-primary/5 border dark:border-primary/50 border-slate-200 shadow-sm ">
+          <Link href='/passport-image-resizer' className=" md:p-8 p-4 rounded-2xl group bg-white dark:bg-primary/5 border dark:border-primary/50 border-slate-200 shadow-sm ">
             <div className="md:mb-6 mb-3 flex justify-between items-start">
               <div
                 className="w-14 h-14 rounded-xl dark:bg-blue-500/20 bg-blue-50 text-blue-600 flex items-center justify-center border border-blue-500/30">
@@ -104,13 +134,13 @@ const page = () => {
                   Node</span>
               </div>
             </div>
-            <h3 className="text-xl font-bold mb-2 text-slate-900 dark:text-slate-50">Image Resizer</h3>
+            <h3 className="text-xl font-bold mb-2 text-slate-900 dark:text-slate-50">Resize Image</h3>
             <p className="text-slate-400 text-sm leading-relaxed md:mb-6 mb-2">Auto-resize images for Government forms,
               IDs, and passports with precise dimensions using high-speed browser compute.</p>
             <div className="hidden sm:block h-1 w-full dark:bg-white/5 bg-slate-200 rounded-full overflow-hidden">
               <div className="h-full dark:bg-blue-500/50 bg-blue-600 w-0 group-hover:w-full group-active:w-full transition-all duration-700"></div>
             </div>
-          </div>
+          </Link>
         </div>
       </section>
       <section className="md:py-24 py-4 px-6 lg:px-20 max-w-7xl mx-auto" id="how-it-works">
@@ -173,6 +203,24 @@ const page = () => {
                 </p>
               </div>
             </div>
+          </div>
+        </div>
+        <div className=" mt-2">
+          <h2 className="text-2xl font-semibold mb-4">
+            Popular Tools
+          </h2>
+          <div className=" text-xs md:text-lg flex flex-wrap gap-3">
+            {["PDF", "Image"].map(tool => (
+
+              ["20kb", "50kb", "100kb", "200kb", "400kb", "500kb"].map(s => (
+                <Link key={s} href={`/compress-${tool.toLocaleLowerCase()}-to-${s}`} className=" border p-2 border-primary/40 hover:bg-primary/40 rounded-xl">
+                  Compress {tool} to {s.toUpperCase()}
+                </Link>
+              ))
+            ))}
+            <Link href={`/passport-image-resizer`} className=" border p-2 border-primary/40 hover:bg-primary/40 rounded-xl">
+              Resize Image
+            </Link>
           </div>
         </div>
       </section>
@@ -259,6 +307,10 @@ const page = () => {
           </div>
         </div>
       </section>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(faq) }}
+      />
     </div>
   )
 }
