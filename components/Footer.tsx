@@ -1,4 +1,5 @@
 import Image from 'next/image'
+import Link from "next/link";
 import React from 'react'
 
 const Footer = () => {
@@ -9,9 +10,10 @@ const Footer = () => {
             <p className="text-sm font-medium text-slate-500 dark:text-slate-400">© 2026 LoCiFile. All processing is private and local.</p>
         </div>
         <div className=" flex justify-between gap-2 ">
-          <a className='text-xs font-bold uppercase tracking-widest text-slate-400 hover:text-primary transition-colors cursor-pointer underline whitespace-nowrap'>privacy policy</a>
+          <Link href="/privacy-policy" className='text-xs font-bold uppercase tracking-widest text-slate-400 hover:text-primary transition-colors cursor-pointer underline whitespace-nowrap'>Privacy Policy</Link>
           <a className='text-xs font-bold uppercase tracking-widest text-slate-400 hover:text-primary transition-colors cursor-pointer underline whitespace-nowrap'>Terms of Service</a>
           <a className='text-xs font-bold uppercase tracking-widest text-slate-400 hover:text-primary transition-colors cursor-pointer underline'>Security</a>
+          <Link href="/contact-us" className='text-xs font-bold uppercase tracking-widest text-slate-400 hover:text-primary transition-colors cursor-pointer underline whitespace-nowrap'>Contact Us</Link>
         </div>
     </div>
   )
