@@ -22,10 +22,11 @@ const DEFAULT_META = {
   description: "Free online passport photo maker for all Indian government exams. UPSC, SSC, RRB, IBPS, SBI, NEET, JEE, GATE. Auto-resize and compress to exact specifications.",
 }
 
-type Props = { searchParams: { exam?: string } }
+type Props = { searchParams: Promise<{ exam?: string }> }
 
 export async function generateMetadata({ searchParams }: Props): Promise<Metadata> {
-  const exam = searchParams?.exam ?? ""
+  let {exam} = await searchParams;
+  exam = exam ?? ""
   const meta = EXAM_META[exam] ?? DEFAULT_META
 
   return {
@@ -61,8 +62,9 @@ export async function generateMetadata({ searchParams }: Props): Promise<Metadat
   }
 }
 
-export default function PassportImageResizerPage({ searchParams }: Props) {
-  const examKey = searchParams?.exam ?? ""
+export default async function PassportImageResizerPage({ searchParams }: Props) {
+  let {exam} = await searchParams;
+  const examKey = exam ?? ""
   const meta = EXAM_META[examKey] ?? DEFAULT_META
   const faq = {
     "@context": "https://schema.org",
