@@ -33,7 +33,7 @@ export async function generateMetadata({ searchParams }: Props): Promise<Metadat
     title: meta.title,
     description: meta.description,
     alternates: {
-      canonical: `https://locifile.in/passport-photo${exam ? `?exam=${exam}` : ""}`,
+      canonical: `https://locifile.in/passport-image-resizer${exam ? `?exam=${exam}` : ""}`,
     },
     keywords: [
       "passport photo maker",
@@ -42,7 +42,7 @@ export async function generateMetadata({ searchParams }: Props): Promise<Metadat
     openGraph: {
       title: meta.title,
       description: meta.description,
-      url: `https://locifile.in/passport-photo?exam=${exam}`,
+      url: `https://locifile.in/passport-image-resizer?exam=${exam}`,
       siteName: "Your Site Name",
       images: [
         {
@@ -135,13 +135,13 @@ export default async function PassportImageResizerPage({ searchParams }: Props) 
         "@type": "ListItem",
         position: 2,
         name: "Passport Photo Maker",
-        item: "https://locifile.in/passport-photo"
+        item: "https://locifile.in/passport-image-resizer"
       },
       {
         "@type": "ListItem",
         position: 3,
         name: examKey.toUpperCase(),
-        item: `https://locifile.in/passport-photo?exam=${examKey}`
+        item: `https://locifile.in/passport-image-resizer?exam=${examKey}`
       }
     ]
   }
@@ -151,7 +151,7 @@ export default async function PassportImageResizerPage({ searchParams }: Props) 
     "@type": "WebApplication",
     name: meta.title,
     description: meta.description,
-    url: `https://locifile.in/passport-photo?exam=${examKey}`,
+    url: `https://locifile.in/passport-image-resizer?exam=${examKey}`,
     applicationCategory: "Utility",
     operatingSystem: "All",
     offers: {
