@@ -13,11 +13,11 @@ export default function sitemap() {
     priority: 0.8,
   }));
 
-  // const pdfPages = sizes.map((size) => ({
-  //   url: `${baseUrl}/compress-pdf-to-${size}`,
-  //   changeFrequency: "daily",
-  //   priority: 0.7,
-  // }));
+  const pdfPages = sizes.map((size) => ({
+    url: `${baseUrl}/compress-pdf-to-${size}`,
+    changeFrequency: "daily",
+    priority: 0.7,
+  }));
 
   return [
     { url: baseUrl, priority: 1 },
@@ -25,6 +25,6 @@ export default function sitemap() {
     { url: `${baseUrl}/pdf-compressor` },
     { url: `${baseUrl}/image-resizer` },
     ...imagePages,
-    // ...pdfPages,
+    ...pdfPages,
   ];
 }

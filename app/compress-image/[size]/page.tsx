@@ -14,7 +14,7 @@ export async function generateStaticParams() {
         "10kb", "20kb", "30kb", "40kb", "50kb",
         "60kb", "70kb", "80kb", "90kb", "100kb",
         "120kb", "150kb", "200kb", "250kb", "300kb",
-        "400kb", "500kb","600kb","800kb", "1mb","2mb","3mb"
+        "400kb", "500kb", "600kb", "800kb", "1mb", "2mb", "3mb"
     ];
     return sizes.map((size) => ({ size }));
 }
@@ -43,7 +43,7 @@ export async function generateMetadata({ params }: any) {
         openGraph: {
             title: `Compress image to ${size} instantly online.`,
             description: `Compress image to ${size} instantly online.`,
-            url: "https://locifile.in/image-compressor",
+            url: `https://locifile.in/compress-image-to-${size}`,
             siteName: "LoCiFile",
             type: "website",
             images: [
@@ -57,14 +57,6 @@ export async function generateMetadata({ params }: any) {
     };
 }
 
-const jsonLd = {
-    "@context": "https://schema.org",
-    "@type": "WebApplication",
-    name: "Image Compressor Tool",
-    url: "https://locifile.in/compress-image-to-${size}",
-    applicationCategory: "Utility",
-    operatingSystem: "All",
-};
 
 export default async function Page({ params }: Props) {
     const { size } = await params;
@@ -159,6 +151,14 @@ export default async function Page({ params }: Props) {
             },
         ],
     };
+    const jsonLd = {
+        "@context": "https://schema.org",
+        "@type": "WebApplication",
+        name: "Image Compressor Tool",
+        url: "https://locifile.in/compress-image-to-${size}",
+        applicationCategory: "Utility",
+        operatingSystem: "All",
+    };
     const structuredData = [
         jsonLd,
         faq,
@@ -195,7 +195,7 @@ export default async function Page({ params }: Props) {
 
             {/* SEO content */}
             <section>
-                <div className="glass lg:px-20 px-5 md:py-5 mb-3 mx-1  pb-4 pt-2 rounded-3xl border border-primary/20">
+                <div className="lg:px-20 px-5 md:py-5 mb-3 mx-1  pb-4 pt-2 rounded-3xl border border-primary/20">
                     <h1 className=" text-2xl underline">{title}</h1>
 
                     <p>{intro}</p>
@@ -212,7 +212,7 @@ export default async function Page({ params }: Props) {
 
                     <ol className=" list-decimal pl-4 mb-2">
                         <li>Upload your image file</li>
-                        <li>Start Compression to {size}KB</li>
+                        <li>Start Compression to {size}</li>
                         <li>Download image</li>
                     </ol>
                     <h2 className=" text-xl mb-0.5 underline">Why Compress Image to {size}?</h2>
@@ -248,11 +248,11 @@ export default async function Page({ params }: Props) {
                     </div>
                     <h2 className=" text-xl mb-2 underline">Try our Other tools</h2>
                     <div className="flex flex-wrap gap-2 mb-2">
-                        {/* {["20kb", "50kb", "100kb", "200kb", "400kb", "500kb"].map(s => (
+                        {["20kb", "50kb", "100kb", "200kb", "400kb", "500kb"].map(s => (
                             <Link key={s} href={`/compress-pdf-to-${s}`} className=" border p-2 border-primary/40 hover:bg-primary/40 rounded-xl">
                                 Compress to {s.toUpperCase()}
                             </Link>
-                        ))} */}
+                        ))}
                         <Link href={`/pdf-compressor`} className=" border p-2 border-primary/40 hover:bg-primary/40 rounded-xl">
                             Compress PDF
                         </Link>
