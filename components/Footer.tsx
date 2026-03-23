@@ -9,7 +9,7 @@ const Footer = () => {
             <Image src='/logo.png' alt='logo' width={40} height={40}></Image>
             <p className="text-sm font-medium text-slate-500 dark:text-slate-400">© 2026 LoCiFile. All processing is private and local.</p>
         </div>
-        <div className=" flex justify-between gap-2 ">
+        <div className=" flex flex-wrap justify-between gap-2 ">
           <Link href="/privacy-policy" className='text-xs font-bold uppercase tracking-widest text-slate-400 hover:text-primary transition-colors cursor-pointer underline whitespace-nowrap'>Privacy Policy</Link>
           <Link href="/terms-service" className='text-xs font-bold uppercase tracking-widest text-slate-400 hover:text-primary transition-colors cursor-pointer underline whitespace-nowrap'>Terms and Service</Link>
           <Link href="/security" className='text-xs font-bold uppercase tracking-widest text-slate-400 hover:text-primary transition-colors cursor-pointer underline whitespace-nowrap'>Security</Link>
