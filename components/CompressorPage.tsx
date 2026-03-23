@@ -13,7 +13,7 @@ export default function CompressorPage({ targetSize }: { targetSize: number }) {
   const [oriSize, setOriSize] = useState(0);
   const [newSize, setNewSize] = useState(0);
   const [progress, setprogress] = useState(false)
-  const inputRef = useRef(null)
+  const inputRef = useRef<HTMLInputElement>(null);
   const [dragging, setDragging] = useState(false)
   const [completed, setCompleted] = useState(50)
 
@@ -37,7 +37,7 @@ export default function CompressorPage({ targetSize }: { targetSize: number }) {
     console.log(compressed)
     setNewSize(compressed.size / 1024)
     setUrl(URL.createObjectURL(compressed));
-    setFileName(compressed.name);
+    setFileName((compressed as File).name || "compressed-file");
     setprogress(false)
   }
 

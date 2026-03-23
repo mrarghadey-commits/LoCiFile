@@ -18,7 +18,6 @@ Locifile is a lightweight, fast, and privacy-focused web application for compres
 
 ### 🪪 Passport Size Image Generator
 - Create standard passport-size photos
-- Resize and crop images easily
 - Ready-to-use output formats
 
 ---
