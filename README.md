@@ -57,7 +57,7 @@ Your files are **never uploaded** to any server.
 ## 🚧 Future Improvements
 - Batch file processing
 - More image editing options
-
+- working with multiple files
 ---
 
 ## 🌐 Browser Support
@@ -65,5 +65,6 @@ Your files are **never uploaded** to any server.
 - Edge
 - Firefox
 - Safari (limited WASM support in older versions)
+- Brave(future update)
 
 ---
